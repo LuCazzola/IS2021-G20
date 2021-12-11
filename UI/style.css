@@ -1,0 +1,262 @@
+
+input:focus { 
+    outline: none !important;
+}
+
+html{
+    margin:0;
+    padding:0;
+    font-size: 1.3vw;
+    font-family: Poppins;
+    overflow-x: hidden;
+}
+input{
+    font-size: 1.3vw;
+}
+body{
+    margin:0;
+    padding:0;
+    background-color: #005CC8;
+}
+h1{
+    margin:0;
+    width: 50%;
+}
+h3{
+    margin: 0;
+}
+br{
+    width: 100%;
+    height: 2%;
+}
+hr{
+    margin: 0;
+    width: 100%;
+    background-color: #005CC8;
+    height: 1px;
+    border: 0;
+}
+.hide{
+    display: none !important;
+}
+/*RICERCA*/
+#navbar{
+    position:absolute;
+    background-color: #005CC8;
+    top: 5%;
+    left: 30%;
+    width: 40%;
+    height: 5%;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+.row img{
+    margin: 2%;
+    width: 5%;
+    height: auto;
+    align-items: center;
+}
+#cerca{
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding: 0;
+    border:0;
+    color: black;
+    text-align: center;
+}
+
+/*FILTRI*/
+.filter{
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 3%;
+    padding-bottom: 2%;
+    text-align: center;
+}
+.filter input{
+    margin-top: 1%;
+    width: 100%;
+}
+
+/* MENU */
+#menu{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    columns: 1;
+    left: 0;
+    top:0;
+    width: 15%;
+    height: 100%;
+    background-color: #03528F;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-left: 1%;
+}
+#menu div{
+    text-decoration: none;
+    color: white;
+    height: 12%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+#menu div a{
+    padding-left: 8%;
+    text-decoration: none;
+    color: white;
+}
+
+
+/*  HIGHLIGHT PARCHEGGIO  */
+#parcheggioHighLight{
+    position: absolute;
+    left: 30%;
+    top:25%;
+    width: 34%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    background-color: white;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+
+    display: flex;
+    flex-direction: column;
+}
+#parcheggioHighLight div{
+    width: 100%;
+}
+#parcheggioHighLight text{
+    margin-bottom:3%;
+}
+#prenota{
+    width: 30%;
+    margin-left: 35%;
+    margin-top:6%;
+    padding-top: 3%;
+    padding-bottom: 2%;
+
+    color: white;
+    background-color: #005CC8;
+    border: 0;
+}
+#star{
+    width: 8%;
+    margin: 0 !important;
+}
+
+/*MAPPA*/
+#map{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -19;
+}
+
+/* DROPDOWN MENU */
+.dropbtn{
+    background-color: white;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+.dropbtn:hover, .dropbtn:focus {
+background-color: #f1f1f1;
+}
+
+.dropdown {
+position: relative;
+display: inline-block;
+}
+
+.dropdown-content {
+display: none;
+background-color: #f1f1f1;
+box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+
+.show {display:block;}
+
+/* ELEMENTI GRAFICI */
+#card-container{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10%;
+    align-items: center;
+    top:10%;
+    left: 25%;
+    width: 60%;
+    height: 100%;
+    padding-bottom: 25%;
+}
+
+.card{
+    background-color: #03528F;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+
+    padding-top: 5%;
+    padding-bottom: 5%;
+    width: 100%;
+    height: 70%;
+    row-gap: 6%;
+    border: 1px solid black;
+    display: grid;
+    columns:1;
+    border-radius: 0.5vw ;
+}
+
+#applica{
+    margin-left: 30%;
+    width: 40%;
+    color: #03528F;
+    word-spacing: 0.2%;
+    font-weight: bold;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+.delete{
+    background-color: #E01923;
+    border: 1px solid black;
+    padding-top: 1%;
+    padding-bottom: 1%;
+
+    margin-left: 80%;
+    width: 15%;
+    color: white;
+    word-spacing: 0.2%;
+    font-weight: bold;
+
+    border-radius: 0.5vw ;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+.campo{
+    height: 12%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color:white;
+}
+.campo text{
+    width: 25%;
+    padding-left: 8%;
+}
+.campo input{
+    width: 55%;
+    text-align: center;
+    padding-top:0.5%;
+    padding-bottom:0.5%;
+}

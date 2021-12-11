@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+        <link rel="stylesheet" href="style.css">
+
+        <script src='script.js'></script>
+        <script src='styleAnimations.js'></script>
+    </head>
+
+    <!--  NAVBAR + FILTRI  -->
+    <body>
+        <input id='active_user_id' type='hidden' value=''></input>
+        <div id='navbar' class='dropdown' >
+            <div class='row' >
+                <input type='text' id='cerca' class="dropbtn" onclick="toggleDrop()">
+                <img src='IMG/search.svg'>
+            </div>
+            <div id="myDropdown" class="dropdown-content">
+                <div class='filter'>
+                    <div class='row'>
+                        <text>Tariffa oraria €/h</text>
+                        <text id='tariffa_value'>5</text>
+                    </div>
+                    <input id='tariffa_range' type="range" min="0" max="10" value="5" oninput="updateTariffa()">
+                </div>
+                <div class='filter'>
+                    <div class='row'>
+                        <text>Raggio in Km</text>
+                        <text id='raggio_value'>50</text>
+                    </div>
+                    <input id='raggio_range' type="range" min="1" max="100" value="50" oninput="updateRaggio()">
+                </div>
+                <div class='filter' style="display: flex; align-items: center; flex-direction: row; column-gap: 2%;" >
+                    <text>Preferiti</text>
+                    <img src="IMG/star-no.svg" id="star_filter" onclick="modifyStar_filter()">
+                </div>
+            </div>
+        </div>
+
+        <!--  MENU'  -->
+        <div id='menu'>
+            <div><a href='profile.html'><strong>Ancora Sotto Droghe</strong><br>vedi profilo</a></div>
+            <hr>
+            <div><a href='index.html'>Cerca Parcheggio</a></div>
+            <hr>
+            <div><a href='#'>Wallet</a></div>
+            <hr>
+            <div><a href='prenotazioni.html'>Prenotazioni</a></div>
+            <hr>
+            <div><a href='#'>Possiedi un Parcheggio?</a></div>
+            <hr>
+            <div><a href='#'>Contattaci</a></div>
+            <hr>
+            <div><a href='#'>Logout</a></div>
+            <hr>
+        </div>
+
+        <!-- POPUP PARCHEGGIO SELEZIONATO -->
+
+        <div id='parcheggioHighLight' class='hide'>
+            <div class="row">
+                <h1 id="nome_parcheggio">NAN</h1>
+                <br>
+                <img src="IMG/star.svg" id="star" onclick="modifyStar()">
+            </div>
+            <br>
+            <div class="row">
+                <text>posti disponibili</text>
+                <text id="posti_disp">NAN</text>
+            </div>
+            <div class="row">
+                <text>distanza</text>
+                <text id="distanza">NAN</text>
+            </div>
+            <div class="row">
+                <text>prezzo</text>
+                <text id="prezzo">NAN</text>
+            </div>
+            <div class="row">
+                <text>Tempo di sosta</text>
+                <text id="tempo_sosta_value">2</text>
+            </div>
+            <input id="tempo_sosta" type="range" min="1" max="100" value="2" oninput="updateTempoSosta()">
+            <input type="button" value="Prenota" id="prenota">
+
+            <input type="hidden" id="key_parcheggio"></input>
+        </div>
+
+        <!--  MAPPA  -->
+        <div id='map'></div>
+        <script src='map.js'></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+
+    <body>
+        <div id='menu'>
+            <div><a href='profile.html'><strong>Ancora Sotto Droghe</strong><br>vedi profilo</a></div>
+            <hr>
+            <div><a href='index.html'>Cerca Parcheggio</a></div>
+            <hr>
+            <div><a href='#'>Wallet</a></div>
+            <hr>
+            <div><a href='prenotazioni.html'>Prenotazioni</a></div>
+            <hr>
+            <div><a href='#'>Possiedi un Parcheggio?</a></div>
+            <hr>
+            <div><a href='#'>Contattaci</a></div>
+            <hr>
+            <div><a href='#'>Logout</a></div>
+            <hr>
+        </div>
+
+        <div id=card-container>
+            <div class='card'>
+                <div class="campo">
+                    <text>Nome</text>
+                    <input type="text" id="nome"></input>
+                </div>
+                <div class="campo">
+                    <text>Cognome</text>
+                    <input type="text" id="cognome"></input>
+                </div>
+                <div class="campo">
+                    <text>Email</text>
+                    <input type="text" id="email"></input>
+                </div>
+                <div class="campo">
+                    <text>Data di nascita</text>
+                    <input type="text" id="data_nascita"></input>
+                </div>
+                <div class="campo">
+                    <text>Targa</text>
+                    <input type="text" id="targa"></input>
+                </div>
+                <div class="campo">
+                    <text>Carta di credito</text>
+                    <input type="text" id="carta_credito"></input>
+                </div>
+                <input type="button" id="applica" value="APPLICA" onclick="setUserData()"></input>
+        </div>
+        <script>getUserData();</script>
+    </body>
+</html>
