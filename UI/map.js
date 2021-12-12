@@ -88,7 +88,9 @@ map.on('load', () => {
                 }
                 var onclickText = " modifyParkStar('"+park._id+"');";
 
-                highLight.innerHTML = '<div class="row"><h1 id="nome_parcheggio">'+park.nome+'</h1><br><img src="IMG/star'+star_extension+'.svg" id="star_'+park._id+'" onclick="'+onclickText+'"></div><br><div class="row"><text>posti disponibili</text><text id="posti_disp">NAN</text></div><div class="row"><text>distanza</text><text id="distanza">NAN</text></div><div class="row"><text>prezzo</text><text id="prezzo">'+park.tariffa_oraria+'</text></div><div class="row"><text>Tempo di sosta</text><text id="tempo_sosta_value">2</text></div><input id="tempo_sosta" type="range" min="1" max="100" value="2" oninput="updateTempoSosta()"><input type="button" value="Prenota" id="prenota"><input type="hidden" id="key_parcheggio" value="'+park._id+'"></input>' 
+                var inner_pren = "addPrenotazione ('"+park._id+"', '"+park.nome+"', '"+park.tariffa_oraria+"')";
+
+                highLight.innerHTML = '<div class="row"><h1 id="nome_parcheggio">'+park.nome+'</h1><br><img src="IMG/star'+star_extension+'.svg" id="star_'+park._id+'" onclick="'+onclickText+'"></div><br><div class="row"><text>posti disponibili</text><text id="posti_disp">NAN</text></div><div class="row"><text>distanza</text><text id="distanza">NAN</text></div><div class="row"><text>prezzo</text><text id="prezzo">'+park.tariffa_oraria+'</text></div><div class="row"><text>Tempo di sosta</text><text id="tempo_sosta_value">2</text></div><input id="tempo_sosta" type="range" min="1" max="100" value="2" oninput="updateTempoSosta()"><input type="button" value="Prenota" id="prenota" onclick="'+inner_pren+'" ><input type="hidden" id="key_parcheggio" value="'+park._id+'"></input>' 
                 highLight.setAttribute('class','show');
             }
             else {

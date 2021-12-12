@@ -20,7 +20,6 @@ function getUserName(){
 }
 
 
-
 function getUserData(){
     var request = new XMLHttpRequest();
 
@@ -72,6 +71,7 @@ function setUserData(){
     request.send(JSON.stringify(data));
 }
 
+//Tutte le prenotazioni esistenti di un utente
 function getPrenotazioni(){
     var request = new XMLHttpRequest();
 
@@ -91,6 +91,37 @@ function getPrenotazioni(){
     }
     request.send();
 }
+
+//Aggiungere una prenotazione
+function addPrenotazione (idPark, nomePark, tariffa){
+    var request = new XMLHttpRequest();
+
+    var ore = parseInt(document.getElementById("tempo_sosta").value);
+
+    var data ={
+        'utente_ID' : active_user_id,
+        'id_parcheggio' : idPark,
+        'nome_parcheggio' : nomePark,
+        'ore' : ore,
+        'tariffa' : parseFloat(tariffa)
+    }
+
+    request.open('POST', 'http://localhost:5000/api/prenotazioni', true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    request.onload = function () {
+        
+        if (request.status >= 200 && request.status < 400){      
+            alert(this.response);
+        }
+        else {
+            alert(this.response);
+        }
+    }
+
+    request.send(JSON.stringify(data));
+}
+
 
 function switchStar (idPark, update) {
     var request = new XMLHttpRequest();

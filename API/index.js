@@ -72,7 +72,6 @@ app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
       console.log(error);
     }
     response.send(result);
-    console.log(result);
   });
 });
 
@@ -113,29 +112,30 @@ app.get('/api/prenotazioni/:id', (request, response) => {
 });
 
 //Nuova prenotazione
-app.post('/api/prenotazioni/:id', (request, response) => {
-
+app.post('/api/prenotazioni', (request, response) => {
   var today = new Date()
-  var now = today.getHours();
+  var now = today.getHours()+":"+today.getMinutes();
+  var actualDay = today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+
   today.addHours(request.body['ore']);
-  var later = today.getHours();
+  var later = today.getHours()+":"+today.getMinutes();
+  var costo = request.body['ore']*request.body['tariffa'];
   
   var data = {
-    "utente_ID" : request.body['id'],
+    "utente_ID" : request.body['utente_ID'],
     "id_parcheggio" : request.body['id_parcheggio'],
     "nome_parcheggio" : request.body['nome_parcheggio'], 
-    "ore" : now, 
-    "giorno" : request.body['giorno'],
-    "ora_inizio" : today.getHours(),
+    "giorno" : actualDay,
+    "ora_inizio" : now,
     "ora_fine" : later,
-    "costo" : request.body['costo'],
+    "costo" : costo
   };
 
   database.collection("prenotazioni").insertOne(data, function(error, result){ 
     if(error){
       console.log(error);
     }
-    response.send(result);
+    response.send("Prenotazione aggiunta con successo!\nPuoi visualizzarla alla sezione 'Prenotazioni'");
   })
 });
 
@@ -184,7 +184,6 @@ app.post('/api/utenti/:id', (request, response) => {
     response.status(400).send("La carta di credito deve essere composta di soli numeri!");
     return;
   }
-
 
   database.collection('utenti').updateOne({ "_id" : ObjectID(request.params.id) },{ $set : data}, function(error, result) {
     if(error){
