@@ -53,14 +53,16 @@ function updateTempoSosta (){
     tempo_sosta_value.innerHTML = tempo_sosta;
 }
 
-function modifyStar(){
-    var star = document.getElementById("star");
+function modifyParkStar(parkID){
+    var star = document.getElementById("star_"+parkID);
     var src = star.getAttribute('src');
     if(src == 'IMG/star.svg'){
-        star.setAttribute('src', 'IMG/star-no.svg')
+        star.setAttribute('src', 'IMG/star-no.svg');
+        switchStar (parkID, false);
     }
     else{
-        star.setAttribute('src', 'IMG/star.svg')
+        star.setAttribute('src', 'IMG/star.svg');
+        switchStar (parkID, true);
     }
 }
 

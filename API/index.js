@@ -65,6 +65,33 @@ app.get('/api/parcheggi/:id', (request, response) => {
   })
 });
 
+//parcheggio singolo
+app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
+  database.collection('parcheggi').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
+    if(error){
+      console.log(error);
+    }
+    response.send(result);
+    console.log(result);
+  });
+});
+
+//Aggiornamento preferiti parcheggio 
+app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
+ 
+  var data = {
+    is_preferito : (request.params.update == "true")
+  }
+
+  database.collection('parcheggi').updateOne({ "_id" : ObjectID(request.params.id) },{ $set : data}, function(error, result) {
+    if(error){
+      console.log(error);
+      response.send("Aggiornamento FALLITO");
+    }
+    response.send("Aggiornamento Effettuato: "+request.params.update);
+  });
+});
+
 //Dati di un singolo utente
 app.get('/api/utenti/:id', (request, response) => {
   database.collection('utenti').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
@@ -81,7 +108,6 @@ app.get('/api/prenotazioni/:id', (request, response) => {
     if(error){
       console.log(error);
     }
-    console.log(result);
     response.send(result);
   })
 });

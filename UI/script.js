@@ -92,3 +92,21 @@ function getPrenotazioni(){
     request.send();
 }
 
+function switchStar (idPark, update) {
+    var request = new XMLHttpRequest();
+
+    request.open('POST', 'http://localhost:5000/api/parcheggi/preferiti/'+idPark+'/'+update, true);
+
+    request.onload = function () {
+        
+        if (request.status >= 200 && request.status < 400){      
+            alert(this.response);
+        }
+        else {
+            alert(this.response);
+        }
+    }
+
+    request.send();
+}
+
