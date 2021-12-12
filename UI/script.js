@@ -62,6 +62,7 @@ function setUserData(){
         
         if (request.status >= 200 && request.status < 400){      
             alert("Utente aggiornato con successo!");
+            location.reload();
         }
         else {
             alert(this.response);
@@ -82,13 +83,33 @@ function getPrenotazioni(){
 
         if (request.status >= 200 && request.status < 400){
             data.forEach(pren => {
-                document.getElementById("card-container").innerHTML += '<div class="card"><div class="campo"><text>Nome Parcheggio</text><input type="text" value="'+pren.nome_parcheggio+'" readonly></input></div><div class="campo"><text>Giorno</text><input type="text" value="'+pren.giorno+'" readonly></input></div><div class="campo"><text>Ora inizio</text><input type="text" value="'+pren.ora_inizio+'" readonly></input></div><div class="campo"><text>Ora fine</text><input type="text" value="'+pren.ora_fine+'" readonly></input></div><div class="campo"><text>Costo</text><input type="text" value="'+pren.costo+'" readonly></input></div><input type="button" value="ELIMINA" class="delete" onclick=""></input></div>';
+                var inner_pren = "deletePrenotazione('"+pren._id+"')";
+                document.getElementById("card-container").innerHTML += '<div class="card"><div class="campo"><text>Nome Parcheggio</text><input type="text" value="'+pren.nome_parcheggio+'" readonly></input></div><div class="campo"><text>Giorno</text><input type="text" value="'+pren.giorno+'" readonly></input></div><div class="campo"><text>Ora inizio</text><input type="text" value="'+pren.ora_inizio+'" readonly></input></div><div class="campo"><text>Ora fine</text><input type="text" value="'+pren.ora_fine+'" readonly></input></div><div class="campo"><text>Costo</text><input type="text" value="'+pren.costo+'" readonly></input></div><input type="button" value="ELIMINA" class="delete" onclick="'+inner_pren+'"></input></div>';
             });
         }
         else {
             console.log("Request Status -> " + request.status + "\nAPI not Working!!!");
         }
     }
+    request.send();
+}
+
+function deletePrenotazione(idPren){
+    var request = new XMLHttpRequest();
+
+    request.open('DELETE', 'http://localhost:5000/api/prenotazioni/'+idPren, true);
+
+    request.onload = function () {
+        
+        if (request.status >= 200 && request.status < 400){      
+            alert(this.response);
+            location.reload();
+        }
+        else {
+            alert(this.response);
+        }
+    }
+
     request.send();
 }
 
@@ -113,6 +134,7 @@ function addPrenotazione (idPark, nomePark, tariffa){
         
         if (request.status >= 200 && request.status < 400){      
             alert(this.response);
+            document.getElementById('parcheggioHighLight').setAttribute('class','hide');
         }
         else {
             alert(this.response);

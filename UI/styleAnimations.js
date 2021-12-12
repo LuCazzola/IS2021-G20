@@ -20,7 +20,7 @@ window.onclick = function(event) {
     //highligh parcheggio
     if (event.target.matches('.mapboxgl-canvas') || event.target.matches('.dropbtn')) {
         var highLight = document.getElementById('parcheggioHighLight');
-
+        
         if(highLight.className == 'show'){
             highLight.setAttribute('class','hide');
         }

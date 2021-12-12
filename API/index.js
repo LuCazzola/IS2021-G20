@@ -141,12 +141,12 @@ app.post('/api/prenotazioni', (request, response) => {
 
 //elimino la prenotazione dell'utente
 app.delete('/api/prenotazioni/:id_pren', (request, response) => {
-  database.collection("prenotazioni").remove({ "_id" : ObjectID(request.params.id_pren) }).toArray((error, result) => {
+  database.collection("prenotazioni").deleteOne({ "_id" : ObjectID(request.params.id_pren) }, function (error, result){
     if(error){
       console.log(error);
     }
-    response.send(result);
-  })
+    response.send("Prenotazione eliminata con successo!");
+  });
 });
 
 //Modifica specifico utente

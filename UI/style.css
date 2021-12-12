@@ -116,7 +116,9 @@ hr{
     text-decoration: none;
     color: white;
 }
-
+#active_user_name{
+    color: tomato;
+}
 
 /*  HIGHLIGHT PARCHEGGIO  */
 #parcheggioHighLight{
@@ -226,7 +228,13 @@ box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
     color: #03528F;
     word-spacing: 0.2%;
     font-weight: bold;
+    border: 1px solid black;
     box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+#applica:hover{
+    background-color: #005CC8;
+    color: white;
+    transition-duration: 0.5s;
 }
 .delete{
     background-color: #E01923;
@@ -242,6 +250,12 @@ box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
 
     border-radius: 0.5vw ;
     box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+
+.delete:hover{
+    color: #E01923;
+    background-color: white;
+    transition-duration: 0.5s;
 }
 .campo{
     height: 12%;
