@@ -22,9 +22,6 @@ window.onclick = function(event) {
         var highLight = document.getElementById('parcheggioHighLight');
 
         if(highLight.className == 'show'){
-            highLight.setAttribute('class','');
-        }
-        else{
             highLight.setAttribute('class','hide');
         }
     }
