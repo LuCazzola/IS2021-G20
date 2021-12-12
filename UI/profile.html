@@ -7,12 +7,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
         <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
     </head>
 
     <body>
         <div id='menu'>
-            <div><a href='profile.html'><strong>Ancora Sotto Droghe</strong><br>vedi profilo</a></div>
+            <div><a href='profile.html'><strong id='active_user_name'></strong><br>vedi profilo</a></div>
             <hr>
             <div><a href='index.html'>Cerca Parcheggio</a></div>
             <hr>
@@ -56,6 +55,8 @@
                 </div>
                 <input type="button" id="applica" value="APPLICA" onclick="setUserData()"></input>
         </div>
+
+        <script src="script.js"></script>
         <script>getUserData();</script>
     </body>
 </html>

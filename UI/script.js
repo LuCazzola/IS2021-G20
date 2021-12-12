@@ -1,4 +1,25 @@
 var active_user_id = '61acb903736680ca6f6e1f3f';
+getUserName();
+
+function getUserName(){
+    var request = new XMLHttpRequest();
+
+    request.open('GET', 'http://localhost:5000/api/utenti/'+active_user_id, true);
+    var data;
+    request.onload = function () {
+        data = JSON.parse(this.response);
+
+        if (request.status >= 200 && request.status < 400){      
+            document.getElementById('active_user_name').innerHTML = data.nome +" "+data.cognome;
+        }
+        else {
+            console.log("Request Status -> " + request.status + "\nAPI not Working!!!");
+        }
+    }
+    request.send();
+}
+
+
 
 function getUserData(){
     var request = new XMLHttpRequest();
