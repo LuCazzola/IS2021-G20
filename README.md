@@ -21,7 +21,7 @@ http://localhost:8080/api-docs
 
 //QUA SCRIVERE COME TESTARE L'API.
   
-La licenza utilizzata per questo progetto è <b>MIT License</b>, prima dell'utilizzo del software consultare la documentazione.
+La licenza utilizzata per questo progetto è <b>MIT License</b>, prima dell'utilizzo del software consultare l'apposita documentazione.
 <BR><BR>
 ## Contributors:
 
