@@ -140,7 +140,7 @@ app.listen(5000, () => {
  *                       is_preferito:
  *                          type: boolean
  *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
- *                          example: 11.11515
+ *                          example: false
  */
 app.get('/api/parcheggi', (request, response) => {
   database.collection("parcheggi").find({}).toArray((error, result) => {
