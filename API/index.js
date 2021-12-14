@@ -319,8 +319,27 @@ app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
 });
 
 
-
-//Aggiornamento preferiti parcheggio 
+//Aggiornamento preferiti parcheggio
+/**
+ * @swagger
+ * /api/parcheggi/preferiti/:id/:update:
+ *   post:
+ *     summary: Aggiorna un parcheggio come preferito.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               $oid:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: 61acb216736680ca6f6e1f14
+ *     responses:
+ *       201:
+ *         description: successful executed
+*/
 app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  
   var data = {
@@ -336,7 +355,68 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
   });
 });
 
+
+
+
 //Dati di un singolo utente
+/**
+ * @swagger
+ * /api/utenti/:id:
+ *   get:
+ *     summary: Restituisce i dati di un singolo Utente.
+ *     description: Restituisce un singolo parcheggio dal server.
+ *     responses:
+ *       200:
+ *         description: Un oggetto parcheggio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acb216736680ca6f6e1f14
+ *                       CF:
+ *                         type: string
+ *                         description: CF dell'utente.
+ *                         example: ABCDEF01G23H456I
+ *                       nome:
+ *                          type: string
+ *                          description: Nome dell'utente
+ *                          example: Mario
+ *                       cognome:
+ *                          type: string
+ *                          description: Cognome dell'utente
+ *                          example: Rossi
+ *                       email:
+ *                          type: string
+ *                          description: E-mail dell'utente
+ *                          example: mr_nobody@gmail.com
+ *                       password:
+ *                          type: string
+ *                          description: Password dell'utente
+ *                          example: prova1234!
+ *                       data_nascita:
+ *                          type: string
+ *                          description: Data di nascita dell'utente
+ *                          example: 17/12/2021
+ *                       targa:
+ *                          type: string
+ *                          description: targa del veicolo dell'utente
+ *                          example: EG512PT
+ *                       carta_credito:
+ *                          type: integer
+ *                          description: Codice della carta di credito dell'utente
+ *                          example: 4444333322221111
+ *                       credito_wallet:
+ *                          type: float
+ *                          description: Credito attuale del wallet dell'utente
+ *                          example: 11.75                      
+ */
 app.get('/api/utenti/:id', (request, response) => {
   database.collection('utenti').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
     if(error){
@@ -345,6 +425,10 @@ app.get('/api/utenti/:id', (request, response) => {
     response.send(result);
   });
 });
+
+
+
+
 
 //prendo tutte le prenotazioni di un utente specifico
 app.get('/api/prenotazioni/:id', (request, response) => {
@@ -355,6 +439,11 @@ app.get('/api/prenotazioni/:id', (request, response) => {
     response.send(result);
   })
 });
+
+
+
+
+
 
 //Nuova prenotazione
 app.post('/api/prenotazioni', (request, response) => {
@@ -384,6 +473,10 @@ app.post('/api/prenotazioni', (request, response) => {
   })
 });
 
+
+
+
+
 //elimino la prenotazione dell'utente
 app.delete('/api/prenotazioni/:id_pren', (request, response) => {
   database.collection("prenotazioni").deleteOne({ "_id" : ObjectID(request.params.id_pren) }, function (error, result){
@@ -393,6 +486,10 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
     response.send("Prenotazione eliminata con successo!");
   });
 });
+
+
+
+
 
 //Modifica specifico utente
 app.post('/api/utenti/:id', (request, response) => {
@@ -404,6 +501,9 @@ app.post('/api/utenti/:id', (request, response) => {
     "targa" : request.body['targa'],
     "carta_credito" : request.body['carta_credito']
   };
+  
+
+
   
   //Spazi bianchi capo-coda stringa
   data.nome = data.nome.trim();
