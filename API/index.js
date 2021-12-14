@@ -493,6 +493,50 @@ app.get('/api/prenotazioni/:id', (request, response) => {
 
 
 //Nuova prenotazione
+/**
+ * @swagger
+ * /api/prenotazioni:
+ *   post:
+ *     summary: Creo una nuova prenotazione.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61b4ec5ac421271a6aa2d8e0
+ *                       utente_ID:
+ *                         type: string
+ *                         description: ID di un utente.
+ *                         example: 61b47382c421271a6aa2d86e
+ *                       id_parcheggio:
+ *                          type: string
+ *                          description: ID di un parcheggio
+ *                          example: 61acba7f736680ca6f6e1f52
+ *                       giorno:
+ *                          type: string
+ *                          description: Data della prenotazione
+ *                          example: 2021-11-11
+ *                       ora_inizio:
+ *                          type: string
+ *                          description: Ora di inizio della prenotazione
+ *                          example: 10:30
+ *                       ora_fine:
+ *                          type: string
+ *                          description: Ora di fine della prenotazione
+ *                          example: 12:00
+ *                       costo:
+ *                          type: float
+ *                          description: Costo della prenotazione
+ *                          example: 2.25
+ *     responses:
+ *       201:
+ *         description: successful executed
+*/
 app.post('/api/prenotazioni', (request, response) => {
   var today = new Date()
   var now = today.getHours()+":"+today.getMinutes();
@@ -525,6 +569,24 @@ app.post('/api/prenotazioni', (request, response) => {
 
 
 //elimino la prenotazione dell'utente
+/**
+ * @swagger
+ * /api/prenotazioni/{id_pren}:
+ *   delete:
+ *     summary: Elimino la prenotazione selezionata.
+ *     parameters:
+ *       - in: path
+ *         name: id_pren
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: 
+ *     responses:
+ *       200:
+ *         description: the product was deleted
+ *       404:
+ *         description: the product was not found
+*/
 app.delete('/api/prenotazioni/:id_pren', (request, response) => {
   database.collection("prenotazioni").deleteOne({ "_id" : ObjectID(request.params.id_pren) }, function (error, result){
     if(error){
@@ -539,6 +601,26 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
 
 
 //Modifica specifico utente
+/**
+ * @swagger
+ * /api/utenti/:id:
+ *   post:
+ *     summary: Modifico uno specifico utente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               $oid:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: 61acb216736680ca6f6e1f14
+ *     responses:
+ *       201:
+ *         description: successful executed
+*/
 app.post('/api/utenti/:id', (request, response) => {
   var data = {
     "nome" : request.body['nome'],
