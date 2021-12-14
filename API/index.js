@@ -3,6 +3,8 @@ Date.prototype.addHours = function(h) {
   return this;
 }
 
+//ciao luca
+
 var MongoClient = require("mongodb").MongoClient;
 var CONNECTION_STRING = "mongodb+srv://G20:G19@cluster0.ditxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 var DB = "smartparking";
