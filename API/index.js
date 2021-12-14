@@ -93,18 +93,54 @@ app.listen(5000, () => {
  *                   items:
  *                     type: object
  *                     properties:
- *                       Name:
+ *                       $oid:
  *                         type: string
- *                         description: The product Name.
- *                         example: Antonio
- *                       Price:
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acba7f736680ca6f6e1f52
+ *                       proprietario_ID:
  *                         type: string
- *                         description: The product's price.
- *                         example: 20.0
- *                       Location:
+ *                         description: ID del singolo proprietario.
+ *                         example: 61b472c0c421271a6aa2d85f
+ *                       coord_N:
+ *                          type: float
+ *                          description: Latitudine del parcheggio
+ *                          example: 46.06646
+ *                       coord_E:
+ *                          type: float
+ *                          description: Longitudine del parcheggio
+ *                          example: 11.11515
+ *                       via:
  *                          type: string
- *                          description: The product's location
- *                          example: Refrigerated foods
+ *                          description: Via nel quale è situato il parcheggio
+ *                          example: Via Roberto da Sanseverino
+ *                       citta:
+ *                          type: string
+ *                          description: Città nel quale è situato il parcheggio
+ *                          example: Trento
+ *                       nome:
+ *                          type: string
+ *                          description: Nome del parcheggio
+ *                          example: Parcheggio Sanseverino
+ *                       CAP:
+ *                          type: integer
+ *                          description: CAP del parcheggio
+ *                          example: 38121
+ *                       posti_disponibili:
+ *                          type: integer
+ *                          description: Numero di posti attualmente disponibili
+ *                          example: 45
+ *                       posti_totali:
+ *                          type: integer
+ *                          description: Numero di posti totali del parcheggio
+ *                          example: 100
+ *                       tariffa_oraria:
+ *                          type: float
+ *                          description: Tariffa oraria del parcheggio
+ *                          example: 1.5
+ *                       is_preferito:
+ *                          type: boolean
+ *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
+ *                          example: 11.11515
  */
 app.get('/api/parcheggi', (request, response) => {
   database.collection("parcheggi").find({}).toArray((error, result) => {
