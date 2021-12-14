@@ -41,7 +41,6 @@ Date.prototype.addHours = function(h) {
   return this;
 }
 
-//ciao luca
 
 var MongoClient = require("mongodb").MongoClient;
 var CONNECTION_STRING = "mongodb+srv://G20:G19@cluster0.ditxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -431,6 +430,54 @@ app.get('/api/utenti/:id', (request, response) => {
 
 
 //prendo tutte le prenotazioni di un utente specifico
+/**
+ * @swagger
+ * /api/prenotazioni/:id: 
+ *   get:
+ *     summary: Restituisce una lista di prenotazioni di un utente specifico.
+ *     description: Restituisce una lista di prenotazioni dal server.
+ *     responses:
+ *       200:
+ *         description: Una lista di prenotazioni.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61b4ec5ac421271a6aa2d8e0
+ *                       utente_ID:
+ *                         type: string
+ *                         description: ID di un utente.
+ *                         example: 61b47382c421271a6aa2d86e
+ *                       id_parcheggio:
+ *                          type: string
+ *                          description: ID di un parcheggio
+ *                          example: 61acba7f736680ca6f6e1f52
+ *                       giorno:
+ *                          type: string
+ *                          description: Data della prenotazione
+ *                          example: 2021-11-11
+ *                       ora_inizio:
+ *                          type: string
+ *                          description: Ora di inizio della prenotazione
+ *                          example: 10:30
+ *                       ora_fine:
+ *                          type: string
+ *                          description: Ora di fine della prenotazione
+ *                          example: 12:00
+ *                       costo:
+ *                          type: float
+ *                          description: Costo della prenotazione
+ *                          example: 2.25
+ */
 app.get('/api/prenotazioni/:id', (request, response) => {
   database.collection("prenotazioni").find({ 'utente_ID' : request.params.id }).toArray((error, result) => {
     if(error){
