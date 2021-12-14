@@ -8,7 +8,7 @@ const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
         info: {
-            title: 'Documentazione APIs Smart Parking App',
+            title: 'Express APIs Smart Parking App',
             version: '1.0.0',
             description:
                 'This is a REST API application made with Express.',
@@ -17,7 +17,7 @@ const swaggerOptions = {
                 url: 'https://spdx.org/licenses/MIT.html',
             },
             contact: {
-                name: 'GroupG20',
+                name: 'GruppoG20',
                 url: 'http://localhost:49146/',
             },
         },
@@ -74,6 +74,38 @@ app.listen(5000, () => {
 });
 
 //Tutti i parcheggi
+/**
+ * @swagger
+ * /api/prodotti: (mettere l'end point...)
+ *   get:
+ *     summary: Restituisce una lista di parcheggi.
+ *     description: Restituisce una lista di parcheggi dal Database nel server.
+ *     responses:
+ *       200:
+ *         description: Una lista di parcheggi.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       Name:
+ *                         type: string
+ *                         description: The product Name.
+ *                         example: Antonio
+ *                       Price:
+ *                         type: string
+ *                         description: The product's price.
+ *                         example: 20.0
+ *                       Location:
+ *                          type: string
+ *                          description: The product's location
+ *                          example: Refrigerated foods
+ */
 app.get('/api/parcheggi', (request, response) => {
   database.collection("parcheggi").find({}).toArray((error, result) => {
     if(error){
