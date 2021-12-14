@@ -76,10 +76,10 @@ app.listen(5000, () => {
 //Tutti i parcheggi
 /**
  * @swagger
- * /api/prodotti: (mettere l'end point...)
+ * /api/parcheggi: 
  *   get:
  *     summary: Restituisce una lista di parcheggi.
- *     description: Restituisce una lista di parcheggi dal Database nel server.
+ *     description: Restituisce una lista di parcheggi dal server.
  *     responses:
  *       200:
  *         description: Una lista di parcheggi.
@@ -99,7 +99,7 @@ app.listen(5000, () => {
  *                         example: 61acba7f736680ca6f6e1f52
  *                       proprietario_ID:
  *                         type: string
- *                         description: ID del singolo proprietario.
+ *                         description: ID del proprietario.
  *                         example: 61b472c0c421271a6aa2d85f
  *                       coord_N:
  *                          type: float
@@ -152,6 +152,74 @@ app.get('/api/parcheggi', (request, response) => {
 });
 
 //parcheggi con filtri
+/**
+ * @swagger
+ * /api/parcheggi/:id: 
+ *   get:
+ *     summary: Restituisce una lista di parcheggi selezionadoli attraverso dei filtri.
+ *     description: Restituisce una lista di parcheggi dal server.
+ *     responses:
+ *       200:
+ *         description: Una lista di parcheggi.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acba7f736680ca6f6e1f52
+ *                       proprietario_ID:
+ *                         type: string
+ *                         description: ID del proprietario.
+ *                         example: 61b472c0c421271a6aa2d85f
+ *                       coord_N:
+ *                          type: float
+ *                          description: Latitudine del parcheggio
+ *                          example: 46.06646
+ *                       coord_E:
+ *                          type: float
+ *                          description: Longitudine del parcheggio
+ *                          example: 11.11515
+ *                       via:
+ *                          type: string
+ *                          description: Via nel quale è situato il parcheggio
+ *                          example: Via Roberto da Sanseverino
+ *                       citta:
+ *                          type: string
+ *                          description: Città nel quale è situato il parcheggio
+ *                          example: Trento
+ *                       nome:
+ *                          type: string
+ *                          description: Nome del parcheggio
+ *                          example: Parcheggio Sanseverino
+ *                       CAP:
+ *                          type: integer
+ *                          description: CAP del parcheggio
+ *                          example: 38121
+ *                       posti_disponibili:
+ *                          type: integer
+ *                          description: Numero di posti attualmente disponibili
+ *                          example: 45
+ *                       posti_totali:
+ *                          type: integer
+ *                          description: Numero di posti totali del parcheggio
+ *                          example: 100
+ *                       tariffa_oraria:
+ *                          type: float
+ *                          description: Tariffa oraria del parcheggio
+ *                          example: 1.5
+ *                       is_preferito:
+ *                          type: boolean
+ *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
+ *                          example: false
+ */
 app.get('/api/parcheggi/:id', (request, response) => {
   var filters = {
     "nome" : request.body['nome'],
@@ -173,7 +241,74 @@ app.get('/api/parcheggi/:id', (request, response) => {
   })
 });
 
+
 //parcheggio singolo
+/**
+ * @swagger
+ * /api/parcheggi/parcheggio/:id:
+ *   get:
+ *     summary: Restituisce un singolo parcheggio.
+ *     description: Restituisce un singolo parcheggio dal server.
+ *     responses:
+ *       200:
+ *         description: Un oggetto parcheggio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acba7f736680ca6f6e1f52
+ *                       proprietario_ID:
+ *                         type: string
+ *                         description: ID del proprietario.
+ *                         example: 61b472c0c421271a6aa2d85f
+ *                       coord_N:
+ *                          type: float
+ *                          description: Latitudine del parcheggio
+ *                          example: 46.06646
+ *                       coord_E:
+ *                          type: float
+ *                          description: Longitudine del parcheggio
+ *                          example: 11.11515
+ *                       via:
+ *                          type: string
+ *                          description: Via nel quale è situato il parcheggio
+ *                          example: Via Roberto da Sanseverino
+ *                       citta:
+ *                          type: string
+ *                          description: Città nel quale è situato il parcheggio
+ *                          example: Trento
+ *                       nome:
+ *                          type: string
+ *                          description: Nome del parcheggio
+ *                          example: Parcheggio Sanseverino
+ *                       CAP:
+ *                          type: integer
+ *                          description: CAP del parcheggio
+ *                          example: 38121
+ *                       posti_disponibili:
+ *                          type: integer
+ *                          description: Numero di posti attualmente disponibili
+ *                          example: 45
+ *                       posti_totali:
+ *                          type: integer
+ *                          description: Numero di posti totali del parcheggio
+ *                          example: 100
+ *                       tariffa_oraria:
+ *                          type: float
+ *                          description: Tariffa oraria del parcheggio
+ *                          example: 1.5
+ *                       is_preferito:
+ *                          type: boolean
+ *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
+ *                          example: false
+ */
 app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
   database.collection('parcheggi').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
     if(error){
@@ -182,6 +317,8 @@ app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
     response.send(result);
   });
 });
+
+
 
 //Aggiornamento preferiti parcheggio 
 app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
