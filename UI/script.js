@@ -203,7 +203,7 @@ function open_park(park_id){
     var highLight = document.getElementById('parcheggioHighLight');
 
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:5000/api/parcheggi/parcheggio/'+park_id, true);  
+    request.open('GET', 'http://localhost:5000/api/parcheggi/'+park_id, true);  
     
     request.onload = function () {
         park = JSON.parse(this.response);
