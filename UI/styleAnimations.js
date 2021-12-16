@@ -6,7 +6,7 @@ function toggleDrop() {
 window.onclick = function(event) {
 
     //dropdown navbar
-    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('src_icon')) {
+    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('#src_icon')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
         var i;
         for (i = 0; i < dropdowns.length; i++) {
@@ -18,7 +18,7 @@ window.onclick = function(event) {
     }
 
     //highligh parcheggio
-    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('.dropbtn')) {
+    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('.dropbtn') || event.target.matches('#src_icon')) {
         var highLight = document.getElementById('parcheggioHighLight');
         
         if(highLight.className == 'show'){
@@ -27,7 +27,7 @@ window.onclick = function(event) {
     }
     
 
-    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('.dropbtn')) {
+    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('.dropbtn') || event.target.matches('img')) {
         var searchResults = document.getElementById('searchResults');
         
         if(searchResults.className == 'show'){
@@ -55,7 +55,7 @@ function updateRaggio (){
 
 function updateTempoSosta (){
     var tempo_sosta_value =  document.getElementById('tempo_sosta_value');
-    var tempo_sosta = document.getElementById('tempo_sosta').value;
+    var tempo_sosta = document.getElementById('tempo_sosta').value+" h";
 
     tempo_sosta_value.innerHTML = tempo_sosta;
 }

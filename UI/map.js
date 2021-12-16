@@ -50,12 +50,40 @@ map.on('load', () => {
         'type': 'circle',
         'source': 'custom',
         'paint': {
-            'circle-color': '#FF0000',
+            'circle-color': '#ff6347',
             'circle-radius': 10,
-            'circle-stroke-width': 2,
+            'circle-stroke-width': 1.5,
             'circle-stroke-color': '#000000'
         }
     });
+
+    map.addSource('currPos', {
+        'type': 'geojson',
+        'data': {
+                'type': 'FeatureCollection',
+                'features': [
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [11.119344, 46.063561]
+                    }
+                }]
+            }
+        });
+
+    map.addLayer({      //Elemento grafico
+        'id': "Postition",
+        'type': 'circle',
+        'source': 'currPos',
+        'paint': {
+            'circle-color': '#005CC8',
+            'circle-radius': 10,
+            'circle-stroke-width': 1.5,
+            'circle-stroke-color': '#000000'
+        }
+    });
+
     map.getSource('custom').setData(geojson);
 
 

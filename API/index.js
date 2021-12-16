@@ -1,7 +1,6 @@
-const Express = require("express");
-const app = Express();
+var Express = require("express");
+var app = Express();
 
-// modules to generate APIs documentation
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -31,40 +30,29 @@ const swaggerOptions = {
     },
     apis: ["index.js"]
 };
-
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/Api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-
-
-Date.prototype.addHours = function(h) {
-  this.setTime(this.getTime() + (h*60*60*1000));
-  return this;
-}
-
 
 var MongoClient = require("mongodb").MongoClient;
+var ObjectID = require('mongodb').ObjectId;
 var CONNECTION_STRING = "mongodb+srv://G20:G19@cluster0.ditxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 var DB = "smartparking";
 var database;
 
-var ObjectID = require('mongodb').ObjectId;
-
-var Express = require("express");
 var bodyParser = require("body-parser");
 var cors = require("cors");
-var app = Express();
 
+app.use('/Api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-//DEFAULT CONNECTION
+
+//DEFAULT DATABASE CONNECTION
 app.listen(5000, () => {
   MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true, 
     useUnifiedTopology: true }, (error, client) => {
       if(error){
-        console.log("ERROR: " + error);
+        console.log("CONNECTION FAILED\n" + error);
       }
       else{
         database = client.db(DB);
@@ -73,14 +61,17 @@ app.listen(5000, () => {
     })
 });
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CAMBIATI PARAMETRI DI RESTITUZIONE, SPECIFICARE CHE SERVE SOLO AL FINE DI CREARE LA MAPPA
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7////
 
 //Tutti i parcheggi
 /**
  * @swagger
  * /api/parcheggi: 
- *   get:
- *     summary: Restituisce una lista di parcheggi.
- *     description: Restituisce una lista di parcheggi dal server.
+ *  get:
+ *   summary: Restituisce una lista di parcheggi.
+ *    description: Restituisce una lista di parcheggi dal server.
  *     responses:
  *       200:
  *         description: Una lista di parcheggi.
@@ -144,7 +135,24 @@ app.listen(5000, () => {
  *                          example: false
  */
 app.get('/api/parcheggi', (request, response) => {
-  database.collection("parcheggi").find({}).toArray((error, result) => {
+
+  var select = {  //Seleziono solo i campi utili a generare la mappa
+    '_id' : 1,
+    'coord_N' : 1,
+    'coord_E' : 1,
+    'proprietario_ID' : 0,
+    'via' : 0,
+    'citta' : 0,
+    'nome' : 0,
+    'CAP' : 0,
+    'posti_disponibili' : 0,
+    'posti_totali' : 0,
+    'tariffa_oraria' : 0,
+    'is_preferito' : 0
+  }
+
+
+  database.collection("parcheggi").find({},select).toArray((error, result) => {
     if(error){
       console.log(error);
     }
@@ -239,7 +247,6 @@ app.get('/api/parcheggi/filtri', (request, response) => {
     "tariffa" : parseFloat(request.query['tariffa']),
     "preferiti" : (request.query['preferiti'] == "true")
   }
-  console.log(data);
 
   var query;
 
@@ -260,7 +267,6 @@ app.get('/api/parcheggi/filtri', (request, response) => {
     if(error){
       console.log(error);
     }
-    console.log(result);
     response.send(result);
   })
 });
@@ -720,20 +726,8 @@ function hasWhiteSpace(s){
   return / /g.test(s);
 }
 
-function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return d;
+Date.prototype.addHours = function(h) {
+  this.setTime(this.getTime() + (h*60*60*1000));
+  return this;
 }
 
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
-}

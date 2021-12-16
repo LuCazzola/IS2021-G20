@@ -112,10 +112,23 @@ hr{
     display: flex;
     align-items: center;
 }
+.star_style, #star_filter{
+    padding:5px;
+    border-radius: 50%;
+}
+
+.star_style:hover, #star_filter:hover{
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.3);
+    transition-duration: 0.5s;
+}
 #menu div a{
     padding-left: 8%;
     text-decoration: none;
     color: white;
+}
+#menu div a:hover{
+    color: tomato;
+    transition-duration: 0.5s;
 }
 #active_user_name{
     color: tomato;
@@ -133,7 +146,7 @@ hr{
     padding-bottom: 2%;
     background-color: white;
     box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
-
+    border-radius: 0.5vw ;
     display: flex;
     flex-direction: column;
 }
@@ -153,6 +166,12 @@ hr{
     color: white;
     background-color: #005CC8;
     border: 0;
+    border-radius: 0.5vw;
+    box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
+}
+#prenota:hover {
+    background-color: #ff6347;
+    transition-duration: 0.5s;
 }
 #star{
     width: 8%;
@@ -160,6 +179,11 @@ hr{
 }
 
 /*RISULTATI RICERCA*/
+
+#src_icon:hover{
+    color: tomato;
+    transition-duration: 0.5s;
+}
 #searchResults{
     position: absolute;
     left: 30%;
@@ -168,7 +192,7 @@ hr{
     background-color: white;
     box-shadow: 0px 0.4vw 2vw rgba(0,0,0,0.2);
     height:60%;
-
+    width: 40%;
     display: flex;
     flex-direction: column;
 }
