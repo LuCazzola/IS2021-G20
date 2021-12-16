@@ -153,7 +153,7 @@ app.get('/api/parcheggi', (request, response) => {
 //parcheggi con filtri
 /**
  * @swagger
- * /api/parcheggi/:id: 
+ * /api/parcheggi/{id}: 
  *   get:
  *     summary: Restituisce una lista di parcheggi selezionadoli attraverso dei filtri.
  *     description: Restituisce una lista di parcheggi dal server.
@@ -244,7 +244,7 @@ app.get('/api/parcheggi/:id', (request, response) => {
 //parcheggio singolo
 /**
  * @swagger
- * /api/parcheggi/parcheggio/:id:
+ * /api/parcheggi/parcheggio/{id}:
  *   get:
  *     summary: Restituisce un singolo parcheggio.
  *     description: Restituisce un singolo parcheggio dal server.
@@ -321,7 +321,7 @@ app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
 //Aggiornamento preferiti parcheggio
 /**
  * @swagger
- * /api/parcheggi/preferiti/:id/:update:
+ * /api/parcheggi/preferiti/{id}/{update}:
  *   post:
  *     summary: Aggiorna un parcheggio come preferito.
  *     requestBody:
@@ -360,7 +360,7 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
 //Dati di un singolo utente
 /**
  * @swagger
- * /api/utenti/:id:
+ * /api/utenti/{id}:
  *   get:
  *     summary: Restituisce i dati di un singolo Utente.
  *     description: Restituisce un singolo parcheggio dal server.
@@ -432,7 +432,7 @@ app.get('/api/utenti/:id', (request, response) => {
 //prendo tutte le prenotazioni di un utente specifico
 /**
  * @swagger
- * /api/prenotazioni/:id: 
+ * /api/prenotazioni/{id}: 
  *   get:
  *     summary: Restituisce una lista di prenotazioni di un utente specifico.
  *     description: Restituisce una lista di prenotazioni dal server.
@@ -603,7 +603,7 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
 //Modifica specifico utente
 /**
  * @swagger
- * /api/utenti/:id:
+ * /api/utenti/{id}:
  *   post:
  *     summary: Modifico uno specifico utente.
  *     requestBody:
