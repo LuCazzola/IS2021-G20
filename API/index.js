@@ -1,7 +1,47 @@
+const Express = require("express");
+const app = Express();
+
+// modules to generate APIs documentation
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Express APIs Smart Parking App',
+            version: '1.0.0',
+            description:
+                'This is a REST API application made with Express.',
+            license: {
+                name: 'Licensed Under MIT',
+                url: 'https://spdx.org/licenses/MIT.html',
+            },
+            contact: {
+                name: 'GruppoG20',
+                url: 'http://localhost:49146/',
+            },
+        },
+        servers: [
+            {
+                url: 'http://localhost:49146/',
+                description: 'Development server',
+            },
+        ],
+    },
+    apis: ["index.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/Api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
+
 Date.prototype.addHours = function(h) {
   this.setTime(this.getTime() + (h*60*60*1000));
   return this;
 }
+
 
 var MongoClient = require("mongodb").MongoClient;
 var CONNECTION_STRING = "mongodb+srv://G20:G19@cluster0.ditxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -33,7 +73,76 @@ app.listen(5000, () => {
     })
 });
 
+
 //Tutti i parcheggi
+/**
+ * @swagger
+ * /api/parcheggi: 
+ *   get:
+ *     summary: Restituisce una lista di parcheggi.
+ *     description: Restituisce una lista di parcheggi dal server.
+ *     responses:
+ *       200:
+ *         description: Una lista di parcheggi.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acba7f736680ca6f6e1f52
+ *                       proprietario_ID:
+ *                         type: string
+ *                         description: ID del proprietario.
+ *                         example: 61b472c0c421271a6aa2d85f
+ *                       coord_N:
+ *                          type: float
+ *                          description: Latitudine del parcheggio
+ *                          example: 46.06646
+ *                       coord_E:
+ *                          type: float
+ *                          description: Longitudine del parcheggio
+ *                          example: 11.11515
+ *                       via:
+ *                          type: string
+ *                          description: Via nel quale è situato il parcheggio
+ *                          example: Via Roberto da Sanseverino
+ *                       citta:
+ *                          type: string
+ *                          description: Città nel quale è situato il parcheggio
+ *                          example: Trento
+ *                       nome:
+ *                          type: string
+ *                          description: Nome del parcheggio
+ *                          example: Parcheggio Sanseverino
+ *                       CAP:
+ *                          type: integer
+ *                          description: CAP del parcheggio
+ *                          example: 38121
+ *                       posti_disponibili:
+ *                          type: integer
+ *                          description: Numero di posti attualmente disponibili
+ *                          example: 45
+ *                       posti_totali:
+ *                          type: integer
+ *                          description: Numero di posti totali del parcheggio
+ *                          example: 100
+ *                       tariffa_oraria:
+ *                          type: float
+ *                          description: Tariffa oraria del parcheggio
+ *                          example: 1.5
+ *                       is_preferito:
+ *                          type: boolean
+ *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
+ *                          example: false
+ */
 app.get('/api/parcheggi', (request, response) => {
   database.collection("parcheggi").find({}).toArray((error, result) => {
     if(error){
@@ -43,14 +152,93 @@ app.get('/api/parcheggi', (request, response) => {
   })
 });
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PARCHEGGIO CON FILTRI DA RIFARE | PARCHEGGIO CON FILTRI DA RIFARE | PARCHEGGIO CON FILTRI DA RIFARE | PARCHEGGIO CON FILTRI DA RIFARE | 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7////
+
+/**
+ * @swagger
+ * /api/parcheggi/{id}: 
+ *   get:
+ *     summary: Restituisce una lista di parcheggi selezionadoli attraverso dei filtri.
+ *     description: Restituisce una lista di parcheggi dal server.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id del parcheggio.
+ *     responses:
+ *       200:
+ *         description: Una lista di parcheggi.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acba7f736680ca6f6e1f52
+ *                       proprietario_ID:
+ *                         type: string
+ *                         description: ID del proprietario.
+ *                         example: 61b472c0c421271a6aa2d85f
+ *                       coord_N:
+ *                          type: float
+ *                          description: Latitudine del parcheggio
+ *                          example: 46.06646
+ *                       coord_E:
+ *                          type: float
+ *                          description: Longitudine del parcheggio
+ *                          example: 11.11515
+ *                       via:
+ *                          type: string
+ *                          description: Via nel quale è situato il parcheggio
+ *                          example: Via Roberto da Sanseverino
+ *                       citta:
+ *                          type: string
+ *                          description: Città nel quale è situato il parcheggio
+ *                          example: Trento
+ *                       nome:
+ *                          type: string
+ *                          description: Nome del parcheggio
+ *                          example: Parcheggio Sanseverino
+ *                       CAP:
+ *                          type: integer
+ *                          description: CAP del parcheggio
+ *                          example: 38121
+ *                       posti_disponibili:
+ *                          type: integer
+ *                          description: Numero di posti attualmente disponibili
+ *                          example: 45
+ *                       posti_totali:
+ *                          type: integer
+ *                          description: Numero di posti totali del parcheggio
+ *                          example: 100
+ *                       tariffa_oraria:
+ *                          type: float
+ *                          description: Tariffa oraria del parcheggio
+ *                          example: 1.5
+ *                       is_preferito:
+ *                          type: boolean
+ *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
+ *                          example: false
+ */
 //parcheggi con filtri
 app.get('/api/parcheggi/filtri', (request, response) => {
   var data = {
     "nome" : request.query['nome'],
     "tariffa" : parseFloat(request.query['tariffa']),
     "preferiti" : (request.query['preferiti'] == "true")
-  };
-
+  }
   console.log(data);
 
   var query;
@@ -77,8 +265,86 @@ app.get('/api/parcheggi/filtri', (request, response) => {
   })
 });
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7////
+
 //parcheggio singolo
-app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
+/**
+ * @swagger
+ * /api/parcheggi/parcheggio/{id}:
+ *   get:
+ *     summary: Restituisce un singolo parcheggio.
+ *     description: Restituisce un singolo parcheggio dal server.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id del parcheggio
+ *     responses:
+ *       200:
+ *         description: Un oggetto parcheggio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acba7f736680ca6f6e1f52
+ *                       proprietario_ID:
+ *                         type: string
+ *                         description: ID del proprietario.
+ *                         example: 61b472c0c421271a6aa2d85f
+ *                       coord_N:
+ *                          type: float
+ *                          description: Latitudine del parcheggio
+ *                          example: 46.06646
+ *                       coord_E:
+ *                          type: float
+ *                          description: Longitudine del parcheggio
+ *                          example: 11.11515
+ *                       via:
+ *                          type: string
+ *                          description: Via nel quale è situato il parcheggio
+ *                          example: Via Roberto da Sanseverino
+ *                       citta:
+ *                          type: string
+ *                          description: Città nel quale è situato il parcheggio
+ *                          example: Trento
+ *                       nome:
+ *                          type: string
+ *                          description: Nome del parcheggio
+ *                          example: Parcheggio Sanseverino
+ *                       CAP:
+ *                          type: integer
+ *                          description: CAP del parcheggio
+ *                          example: 38121
+ *                       posti_disponibili:
+ *                          type: integer
+ *                          description: Numero di posti attualmente disponibili
+ *                          example: 45
+ *                       posti_totali:
+ *                          type: integer
+ *                          description: Numero di posti totali del parcheggio
+ *                          example: 100
+ *                       tariffa_oraria:
+ *                          type: float
+ *                          description: Tariffa oraria del parcheggio
+ *                          example: 1.5
+ *                       is_preferito:
+ *                          type: boolean
+ *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
+ *                          example: false
+ */
+app.get('/api/parcheggi/:id', (request, response) => {
   database.collection('parcheggi').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
     if(error){
       console.log(error);
@@ -87,7 +353,28 @@ app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
   });
 });
 
-//Aggiornamento preferiti parcheggio 
+
+//Aggiornamento preferiti parcheggio
+/**
+ * @swagger
+ * /api/parcheggi/preferiti/{id}/update:
+ *   post:
+ *     summary: Aggiorna un parcheggio come preferito.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               $oid:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: 61acb216736680ca6f6e1f14
+ *     responses:
+ *       201:
+ *         description: successful executed
+*/
 app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  
   var data = {
@@ -103,7 +390,75 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
   });
 });
 
+
+
+
 //Dati di un singolo utente
+/**
+ * @swagger
+ * /api/utenti/{id}:
+ *   get:
+ *     summary: Restituisce i dati di un singolo Utente.
+ *     description: Restituisce un singolo parcheggio dal server.
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id di un utente.
+ *     responses:
+ *       200:
+ *         description: Un oggetto parcheggio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61acb216736680ca6f6e1f14
+ *                       CF:
+ *                         type: string
+ *                         description: CF dell'utente.
+ *                         example: ABCDEF01G23H456I
+ *                       nome:
+ *                          type: string
+ *                          description: Nome dell'utente
+ *                          example: Mario
+ *                       cognome:
+ *                          type: string
+ *                          description: Cognome dell'utente
+ *                          example: Rossi
+ *                       email:
+ *                          type: string
+ *                          description: E-mail dell'utente
+ *                          example: mr_nobody@gmail.com
+ *                       password:
+ *                          type: string
+ *                          description: Password dell'utente
+ *                          example: prova1234!
+ *                       data_nascita:
+ *                          type: string
+ *                          description: Data di nascita dell'utente
+ *                          example: 17/12/2021
+ *                       targa:
+ *                          type: string
+ *                          description: targa del veicolo dell'utente
+ *                          example: EG512PT
+ *                       carta_credito:
+ *                          type: integer
+ *                          description: Codice della carta di credito dell'utente
+ *                          example: 4444333322221111
+ *                       credito_wallet:
+ *                          type: float
+ *                          description: Credito attuale del wallet dell'utente
+ *                          example: 11.75                      
+ */
 app.get('/api/utenti/:id', (request, response) => {
   database.collection('utenti').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
     if(error){
@@ -113,7 +468,66 @@ app.get('/api/utenti/:id', (request, response) => {
   });
 });
 
+
+
+
+
 //prendo tutte le prenotazioni di un utente specifico
+/**
+ * @swagger
+ * /api/prenotazioni/{id}: 
+ *   get:
+ *     summary: Restituisce una lista di prenotazioni di un utente specifico.
+ *     description: Restituisce una lista di prenotazioni dal server.
+ *      parameters:
+ *       - in: path
+ *         name: name
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id di un utente.
+ *     responses:
+ *       200:
+ *         description: Una lista di prenotazioni.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61b4ec5ac421271a6aa2d8e0
+ *                       utente_ID:
+ *                         type: string
+ *                         description: ID di un utente.
+ *                         example: 61b47382c421271a6aa2d86e
+ *                       id_parcheggio:
+ *                          type: string
+ *                          description: ID di un parcheggio
+ *                          example: 61acba7f736680ca6f6e1f52
+ *                       giorno:
+ *                          type: string
+ *                          description: Data della prenotazione
+ *                          example: 2021-11-11
+ *                       ora_inizio:
+ *                          type: string
+ *                          description: Ora di inizio della prenotazione
+ *                          example: 10:30
+ *                       ora_fine:
+ *                          type: string
+ *                          description: Ora di fine della prenotazione
+ *                          example: 12:00
+ *                       costo:
+ *                          type: float
+ *                          description: Costo della prenotazione
+ *                          example: 2.25
+ */
 app.get('/api/prenotazioni/:id', (request, response) => {
   database.collection("prenotazioni").find({ 'utente_ID' : request.params.id }).toArray((error, result) => {
     if(error){
@@ -123,7 +537,56 @@ app.get('/api/prenotazioni/:id', (request, response) => {
   })
 });
 
+
+
+
+
+
 //Nuova prenotazione
+/**
+ * @swagger
+ * /api/prenotazioni:
+ *   post:
+ *     summary: Creo una nuova prenotazione.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                       $oid:
+ *                         type: string
+ *                         description: La chiave assegnata da MongoDB.
+ *                         example: 61b4ec5ac421271a6aa2d8e0
+ *                       utente_ID:
+ *                         type: string
+ *                         description: ID di un utente.
+ *                         example: 61b47382c421271a6aa2d86e
+ *                       id_parcheggio:
+ *                          type: string
+ *                          description: ID di un parcheggio
+ *                          example: 61acba7f736680ca6f6e1f52
+ *                       giorno:
+ *                          type: string
+ *                          description: Data della prenotazione
+ *                          example: 2021-11-11
+ *                       ora_inizio:
+ *                          type: string
+ *                          description: Ora di inizio della prenotazione
+ *                          example: 10:30
+ *                       ora_fine:
+ *                          type: string
+ *                          description: Ora di fine della prenotazione
+ *                          example: 12:00
+ *                       costo:
+ *                          type: float
+ *                          description: Costo della prenotazione
+ *                          example: 2.25
+ *     responses:
+ *       201:
+ *         description: successful executed
+*/
 app.post('/api/prenotazioni', (request, response) => {
   var today = new Date()
   var now = today.getHours()+":"+today.getMinutes();
@@ -151,7 +614,29 @@ app.post('/api/prenotazioni', (request, response) => {
   })
 });
 
+
+
+
+
 //elimino la prenotazione dell'utente
+/**
+ * @swagger
+ * /api/prenotazioni/{id_pren}:
+ *   delete:
+ *     summary: Elimino la prenotazione selezionata.
+ *     parameters:
+ *       - in: path
+ *         name: id_pren
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: 
+ *     responses:
+ *       200:
+ *         description: the product was deleted
+ *       404:
+ *         description: the product was not found
+*/
 app.delete('/api/prenotazioni/:id_pren', (request, response) => {
   database.collection("prenotazioni").deleteOne({ "_id" : ObjectID(request.params.id_pren) }, function (error, result){
     if(error){
@@ -161,7 +646,31 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
   });
 });
 
+
+
+
+
 //Modifica specifico utente
+/**
+ * @swagger
+ * /api/utenti/{id}:
+ *   post:
+ *     summary: Modifico uno specifico utente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               $oid:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: 61acb216736680ca6f6e1f14
+ *     responses:
+ *       201:
+ *         description: successful executed
+*/
 app.post('/api/utenti/:id', (request, response) => {
   var data = {
     "nome" : request.body['nome'],
@@ -171,6 +680,7 @@ app.post('/api/utenti/:id', (request, response) => {
     "targa" : request.body['targa'],
     "carta_credito" : request.body['carta_credito']
   };
+  
   
   //Spazi bianchi capo-coda stringa
   data.nome = data.nome.trim();
