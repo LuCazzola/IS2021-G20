@@ -4,6 +4,7 @@ const app = Express();
 // modules to generate APIs documentation
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -157,6 +158,13 @@ app.get('/api/parcheggi', (request, response) => {
  *   get:
  *     summary: Restituisce una lista di parcheggi selezionadoli attraverso dei filtri.
  *     description: Restituisce una lista di parcheggi dal server.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id del parcheggio.
  *     responses:
  *       200:
  *         description: Una lista di parcheggi.
@@ -248,6 +256,13 @@ app.get('/api/parcheggi/:id', (request, response) => {
  *   get:
  *     summary: Restituisce un singolo parcheggio.
  *     description: Restituisce un singolo parcheggio dal server.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id del parcheggio
  *     responses:
  *       200:
  *         description: Un oggetto parcheggio.
@@ -321,7 +336,7 @@ app.get('/api/parcheggi/parcheggio/:id', (request, response) => {
 //Aggiornamento preferiti parcheggio
 /**
  * @swagger
- * /api/parcheggi/preferiti/{id}/{update}:
+ * /api/parcheggi/preferiti/{id}/update:
  *   post:
  *     summary: Aggiorna un parcheggio come preferito.
  *     requestBody:
@@ -364,6 +379,13 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  *   get:
  *     summary: Restituisce i dati di un singolo Utente.
  *     description: Restituisce un singolo parcheggio dal server.
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id di un utente.
  *     responses:
  *       200:
  *         description: Un oggetto parcheggio.
@@ -436,6 +458,13 @@ app.get('/api/utenti/:id', (request, response) => {
  *   get:
  *     summary: Restituisce una lista di prenotazioni di un utente specifico.
  *     description: Restituisce una lista di prenotazioni dal server.
+ *      parameters:
+ *       - in: path
+ *         name: name
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id di un utente.
  *     responses:
  *       200:
  *         description: Una lista di prenotazioni.
