@@ -71,32 +71,6 @@ map.on('load', () => {
 
         map.flyTo({ center: feature.geometry.coordinates });
 
-        var highLight = document.getElementById('parcheggioHighLight');
-
-        var request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:5000/api/parcheggi/parcheggio/'+feature.properties.title, true);  
-        console.log(feature.properties.title);
-        
-        request.onload = function () {
-            park = JSON.parse(this.response);
-
-            if (request.status >= 200 && request.status < 400){
-
-                var star_extension = "";
-                if(!park.is_preferito){
-                    star_extension = "-no";
-                }
-                var onclickText = " modifyParkStar('"+park._id+"');";
-
-                var inner_pren = "addPrenotazione ('"+park._id+"', '"+park.nome+"', '"+park.tariffa_oraria+"')";
-
-                highLight.innerHTML = '<div class="row"><h1 id="nome_parcheggio">'+park.nome+'</h1><br><img src="IMG/star'+star_extension+'.svg" id="star_'+park._id+'" onclick="'+onclickText+'"></div><br><div class="row"><text>posti disponibili</text><text id="posti_disp">NAN</text></div><div class="row"><text>distanza</text><text id="distanza">NAN</text></div><div class="row"><text>prezzo</text><text id="prezzo">'+park.tariffa_oraria+'</text></div><div class="row"><text>Tempo di sosta</text><text id="tempo_sosta_value">2</text></div><input id="tempo_sosta" type="range" min="1" max="100" value="2" oninput="updateTempoSosta()"><input type="button" value="Prenota" id="prenota" onclick="'+inner_pren+'" ><input type="hidden" id="key_parcheggio" value="'+park._id+'"></input>' 
-                highLight.setAttribute('class','show');
-            }
-            else {
-                alert(this.response);
-            }
-        }
-        request.send();
+        open_park(feature.properties.title);
     });
 });

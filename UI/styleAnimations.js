@@ -6,7 +6,7 @@ function toggleDrop() {
 window.onclick = function(event) {
 
     //dropdown navbar
-    if (event.target.matches('.mapboxgl-canvas')) {
+    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('src_icon')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
         var i;
         for (i = 0; i < dropdowns.length; i++) {
@@ -25,6 +25,16 @@ window.onclick = function(event) {
             highLight.setAttribute('class','hide');
         }
     }
+    
+
+    if (event.target.matches('.mapboxgl-canvas') || event.target.matches('.dropbtn')) {
+        var searchResults = document.getElementById('searchResults');
+        
+        if(searchResults.className == 'show'){
+            searchResults.setAttribute('class','hide');
+        }
+    }
+
 }
 
 

@@ -163,3 +163,67 @@ function switchStar (idPark, update) {
     request.send();
 }
 
+function getFilteredParcheggi (){
+    var request = new XMLHttpRequest();
+
+    var data = {
+        'nome' : document.getElementById('cerca').value,
+        'tariffa' : parseFloat(document.getElementById('tariffa_value').innerHTML),
+        'preferiti' : (document.getElementById('star_filter').getAttribute('src') == 'IMG/start.svg')
+    };
+
+    request.open('GET', 'http://localhost:5000/api/parcheggi/filtri?nome='+data.nome+'&tariffa='+data.tariffa+'&preferiti='+data.preferiti, true);
+
+    request.onload = function () {
+        if (request.status >= 200 && request.status < 400){
+            data = JSON.parse(this.response)      
+            if(data.length > 0){
+                document.getElementById("searchResults").innerHTML = "";
+
+                data.forEach(park => {
+                    onclick_inner = "open_park('"+park._id+"')";
+                    document.getElementById("searchResults").innerHTML += '<div class="row" onclick = "'+onclick_inner+'"><text>'+park.nome+'</text><text>'+park.tariffa_oraria+' €/h</text></div><hr>'
+                });
+                document.getElementById("searchResults").setAttribute("class","show");
+            }
+            else{
+                alert("Nessun parcheggio rispetta i criteri scelti !!!");
+            }
+        }
+        else {
+            alert(this.response);
+        }
+    }
+
+    request.send();
+}
+
+function open_park(park_id){
+    document.getElementById("searchResults").setAttribute("class","hide");
+    var highLight = document.getElementById('parcheggioHighLight');
+
+    var request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:5000/api/parcheggi/parcheggio/'+park_id, true);  
+    
+    request.onload = function () {
+        park = JSON.parse(this.response);
+
+        if (request.status >= 200 && request.status < 400){
+
+            var star_extension = "";
+            if(!park.is_preferito){
+                star_extension = "-no";
+            }
+            var onclickText = " modifyParkStar('"+park._id+"');";
+
+            var inner_pren = "addPrenotazione ('"+park._id+"', '"+park.nome+"', '"+park.tariffa_oraria+"')";
+
+            highLight.innerHTML = '<div class="row"><h1 id="nome_parcheggio">'+park.nome+'</h1><br><img src="IMG/star'+star_extension+'.svg" id="star_'+park._id+'" onclick="'+onclickText+'"></div><br><div class="row"><text>posti disponibili</text><text id="posti_disp">NAN</text></div><div class="row"><text>distanza</text><text id="distanza">NAN</text></div><div class="row"><text>prezzo</text><text id="prezzo">'+park.tariffa_oraria+'</text></div><div class="row"><text>Tempo di sosta</text><text id="tempo_sosta_value">2</text></div><input id="tempo_sosta" type="range" min="1" max="100" value="2" oninput="updateTempoSosta()"><input type="button" value="Prenota" id="prenota" onclick="'+inner_pren+'" ><input type="hidden" id="key_parcheggio" value="'+park._id+'"></input>' 
+            highLight.setAttribute('class','show');
+        }
+        else {
+            alert(this.response);
+        }
+    }
+    request.send();
+}

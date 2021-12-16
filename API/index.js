@@ -44,23 +44,35 @@ app.get('/api/parcheggi', (request, response) => {
 });
 
 //parcheggi con filtri
-app.get('/api/parcheggi/:id', (request, response) => {
-  var filters = {
-    "nome" : request.body['nome'],
-    "tariffa" : request.body['tariffa'],
-    "preferiti" : request.body['preferiti']
+app.get('/api/parcheggi/filtri', (request, response) => {
+  var data = {
+    "nome" : request.query['nome'],
+    "tariffa" : parseFloat(request.query['tariffa']),
+    "preferiti" : (request.query['preferiti'] == "true")
   };
 
-  database.collection("parcheggi").find({
+  console.log(data);
 
-    "nome" : { $regex: ".*" + filters.nome + ".*" },
-    "tariffa" : { $lte: filters.tariffa},
-    "preferiti" : filters.preferiti
+  var query;
 
-  }).toArray((error, result) => {
+  if(data.preferiti){   //considero solo i parcheggi preferiti
+    query = {
+      'nome' : {$regex: ".*" + data.nome + ".*"},
+      'tariffa_oraria' : { $lte: data.tariffa},
+      'is_preferito' : data.preferiti
+    }
+  }else{                //considero preferiti e NON preferiti
+    query = {
+      'nome' : {$regex: ".*" + data.nome + ".*"},
+      'tariffa_oraria' : { $lte: data.tariffa},
+    }
+  }
+
+  database.collection("parcheggi").find(query).toArray((error, result) => {
     if(error){
       console.log(error);
     }
+    console.log(result);
     response.send(result);
   })
 });

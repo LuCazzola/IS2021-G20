@@ -20,22 +20,23 @@
         <div id='navbar' class='dropdown' >
             <div class='row' >
                 <input type='text' id='cerca' class="dropbtn" onclick="toggleDrop()">
-                <img src='IMG/search.svg'>
+                <img src='IMG/search.svg' id="src_icon" onclick="getFilteredParcheggi()">
             </div>
+
             <div id="myDropdown" class="dropdown-content">
                 <div class='filter'>
                     <div class='row'>
                         <text>Tariffa oraria €/h</text>
-                        <text id='tariffa_value'>5</text>
+                        <text id='tariffa_value'>2.5</text>
                     </div>
-                    <input id='tariffa_range' type="range" min="0" max="10" value="5" oninput="updateTariffa()">
+                    <input id='tariffa_range' type="range" min="0" max="5" value="2.5" step="0.1" oninput="updateTariffa()">
                 </div>
                 <div class='filter'>
                     <div class='row'>
                         <text>Raggio in Km</text>
-                        <text id='raggio_value'>50</text>
+                        <text id='raggio_value'>25</text>
                     </div>
-                    <input id='raggio_range' type="range" min="1" max="100" value="50" oninput="updateRaggio()">
+                    <input id='raggio_range' type="range" min="1" max="50" value="25" oninput="updateRaggio()">
                 </div>
                 <div class='filter' style="display: flex; align-items: center; flex-direction: row; column-gap: 2%;" >
                     <text>Preferiti</text>
@@ -64,34 +65,9 @@
 
         <!-- POPUP PARCHEGGIO SELEZIONATO -->
 
-        <div id='parcheggioHighLight' class='hide'>
-            <div class="row">
-                <h1 id="nome_parcheggio">NAN</h1>
-                <br>
-                <img src="IMG/star.svg" id="star" onclick="modifyStar()">
-            </div>
-            <br>
-            <div class="row">
-                <text>posti disponibili</text>
-                <text id="posti_disp">NAN</text>
-            </div>
-            <div class="row">
-                <text>distanza</text>
-                <text id="distanza">NAN</text>
-            </div>
-            <div class="row">
-                <text>prezzo</text>
-                <text id="prezzo">NAN</text>
-            </div>
-            <div class="row">
-                <text>Tempo di sosta</text>
-                <text id="tempo_sosta_value">2</text>
-            </div>
-            <input id="tempo_sosta" type="range" min="1" max="100" value="2" oninput="updateTempoSosta()">
-            <input type="button" value="Prenota" id="prenota">
+        <div id='parcheggioHighLight' class='hide'></div>
 
-            <input type="hidden" id="key_parcheggio"></input>
-        </div>
+        <div id='searchResults' class="hide"></div>
 
         <!--  MAPPA  -->
         <div id='map'></div>
