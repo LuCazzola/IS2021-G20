@@ -29,7 +29,7 @@ map.on('load', () => {
     });
     
     // Inserimento dinamico dei marker sulla mappa
-    data.forEach(parcheggio =>
+    data.parcheggi.forEach(parcheggio =>
     {
         var currID = parcheggio._id;
 

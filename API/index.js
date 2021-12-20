@@ -61,7 +61,6 @@ app.listen(49126, () => {
     })
 });
 
-//Tutti i parcheggi
 
 
 /**
@@ -111,6 +110,8 @@ app.get('/api/parcheggi', (request, response) => {
     response.send({parcheggi});
   })
 });
+
+
 
 /**
  * @swagger
@@ -684,11 +685,9 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
     .then(result => {
       if(result.deletedCount > 0){
         response.send("Prenotazione eliminata con successo!");
-        console.log("ELIMINATA");
       }
       else{
         response.status(404).send();
-        console.log("NON TROVATA");
       }
     })
 });

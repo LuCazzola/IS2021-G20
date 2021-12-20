@@ -12,7 +12,7 @@ function getUserName(){
         data = JSON.parse(this.response);
 
         if (request.status >= 200 && request.status < 400){      
-            document.getElementById('active_user_name').innerHTML = data.nome +" "+data.cognome;
+            document.getElementById('active_user_name').innerHTML = data.utente.nome +" "+data.utente.cognome;
         }
         else {
             console.log("Request Status -> " + request.status + "\nAPI not Working!!!");
@@ -31,12 +31,12 @@ function getUserData(){
         data = JSON.parse(this.response);
 
         if (request.status >= 200 && request.status < 400){      
-            document.getElementById('nome').setAttribute('value', data.nome );
-            document.getElementById('cognome').setAttribute('value', data.cognome );
-            document.getElementById('email').setAttribute('value', data.email );
-            document.getElementById('data_nascita').setAttribute('value', data.data_nascita );
-            document.getElementById('targa').setAttribute('value', data.targa );
-            document.getElementById('carta_credito').setAttribute('value', data.carta_credito );
+            document.getElementById('nome').setAttribute('value', data.utente.nome );
+            document.getElementById('cognome').setAttribute('value', data.utente.cognome );
+            document.getElementById('email').setAttribute('value', data.utente.email );
+            document.getElementById('data_nascita').setAttribute('value', data.utente.data_nascita );
+            document.getElementById('targa').setAttribute('value', data.utente.targa );
+            document.getElementById('carta_credito').setAttribute('value', data.utente.carta_credito );
         }
         else {
             console.log("Request Status -> " + request.status + "\nAPI not Working!!!");
@@ -84,7 +84,7 @@ function getPrenotazioni(){
         data = JSON.parse(this.response);
 
         if (request.status >= 200 && request.status < 400){
-            data.forEach(pren => {
+            data.prenotazioni.forEach(pren => {
                 var inner_pren = "deletePrenotazione('"+pren._id+"')";
                 document.getElementById("card-container").innerHTML += '<div class="card"><div class="campo"><text>Nome Parcheggio</text><input type="text" value="'+pren.nome_parcheggio+'" readonly></input></div><div class="campo"><text>Giorno</text><input type="text" value="'+pren.giorno+'" readonly></input></div><div class="campo"><text>Ora inizio</text><input type="text" value="'+pren.ora_inizio+'" readonly></input></div><div class="campo"><text>Ora fine</text><input type="text" value="'+pren.ora_fine+'" readonly></input></div><div class="campo"><text>Costo</text><input type="text" value="'+pren.costo+'" readonly></input></div><input type="button" value="ELIMINA" class="delete" onclick="'+inner_pren+'"></input></div>';
             });
@@ -122,14 +122,12 @@ function addPrenotazione (idPark, nomePark, tariffa){
     var ore = parseInt(document.getElementById("tempo_sosta").value);
 
     var data ={
-        'utente_ID' : active_user_id,
-        'id_parcheggio' : idPark,
         'nome_parcheggio' : nomePark,
         'ore' : ore,
         'tariffa' : parseFloat(tariffa)
     }
 
-    request.open('POST', 'http://localhost:49126/api/prenotazioni', true);
+    request.open('POST', 'http://localhost:49126/api/prenotazioni/'+active_user_id+'/'+idPark, true);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     request.onload = function () {
@@ -182,7 +180,7 @@ function getFilteredParcheggi (){
             if(data.length > 0){
                 document.getElementById("searchResults").innerHTML = "";
                 
-                data.forEach(park => {
+                data.parcheggi.forEach(park => {
                     var distance = getDistanceFromLatLonInKm(curr_Nord, curr_Est, park.coord_N, park.coord_E).toFixed(2);
                     if(distance < document.getElementById("raggio_range").value){
                         var onclick_inner = "open_park('"+park._id+"')";
@@ -221,14 +219,14 @@ function open_park(park_id){
         if (request.status >= 200 && request.status < 400){
 
             var star_extension = "";
-            if(!park.is_preferito){
+            if(!park.parcheggio.is_preferito){
                 star_extension = "-no";
             }
-            var onclickText = " modifyParkStar('"+park._id+"');";
-            var inner_pren = "addPrenotazione ('"+park._id+"', '"+park.nome+"', '"+park.tariffa_oraria+"')";
-            var distance = getDistanceFromLatLonInKm(curr_Nord, curr_Est, park.coord_N, park.coord_E).toFixed(2);
+            var onclickText = " modifyParkStar('"+park.parcheggio._id+"');";
+            var inner_pren = "addPrenotazione ('"+park.parcheggio._id+"', '"+park.parcheggio.nome+"', '"+park.parcheggio.tariffa_oraria+"')";
+            var distance = getDistanceFromLatLonInKm(curr_Nord, curr_Est, park.parcheggio.coord_N, park.parcheggio.coord_E).toFixed(2);
 
-            highLight.innerHTML = '<div class="row"><h1 id="nome_parcheggio">'+park.nome+'</h1><br><img src="IMG/star'+star_extension+'.svg" id="star_'+park._id+'" class="star_style" onclick="'+onclickText+'"></div><br><div class="row"><text>posti disponibili</text><text id="posti_disp">'+park.posti_disponibili+'</text></div><div class="row"><text>distanza</text><text id="distanza">'+distance+' Km</text></div><div class="row"><text>prezzo</text><text id="prezzo">'+park.tariffa_oraria+' €/h</text></div><div class="row"><text>Tempo di sosta</text><text id="tempo_sosta_value">2 h</text></div><input id="tempo_sosta" type="range" min="1" max="48" value="2" oninput="updateTempoSosta()"><input type="button" value="Prenota" id="prenota" onclick="'+inner_pren+'" ><input type="hidden" id="key_parcheggio" value="'+park._id+'"></input>' 
+            highLight.innerHTML = '<div class="row"><h1 id="nome_parcheggio">'+park.parcheggio.nome+'</h1><br><img src="IMG/star'+star_extension+'.svg" id="star_'+park.parcheggio._id+'" class="star_style" onclick="'+onclickText+'"></div><br><div class="row"><text>posti disponibili</text><text id="posti_disp">'+park.parcheggio.posti_disponibili+'</text></div><div class="row"><text>distanza</text><text id="distanza">'+distance+' Km</text></div><div class="row"><text>prezzo</text><text id="prezzo">'+park.parcheggio.tariffa_oraria+' €/h</text></div><div class="row"><text>Tempo di sosta</text><text id="tempo_sosta_value">2 h</text></div><input id="tempo_sosta" type="range" min="1" max="48" value="2" oninput="updateTempoSosta()"><input type="button" value="Prenota" id="prenota" onclick="'+inner_pren+'" ><input type="hidden" id="key_parcheggio" value="'+park.parcheggio._id+'"></input>' 
             highLight.setAttribute('class','show');
         }
         else {

@@ -1,1 +1,0 @@
-var active_user_id = '61acb903736680ca6f6e1f3f';
