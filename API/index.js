@@ -18,12 +18,12 @@ const swaggerOptions = {
             },
             contact: {
                 name: 'GruppoG20',
-                url: 'http://localhost:49146/',
+                url: 'http://localhost:49126',
             },
         },
         servers: [
             {
-                url: 'http://localhost:49146/',
+                url: 'http://localhost:49126',
                 description: 'Development server',
             },
         ],
@@ -48,7 +48,7 @@ app.use(cors());
 
 
 //DEFAULT DATABASE CONNECTION
-app.listen(5000, () => {
+app.listen(49126, () => {
   MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true, 
     useUnifiedTopology: true }, (error, client) => {
       if(error){
@@ -61,38 +61,32 @@ app.listen(5000, () => {
     })
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// CAMBIATI PARAMETRI DI RESTITUZIONE, SPECIFICARE CHE SERVE SOLO AL FINE DI CREARE LA MAPPA
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7////
-
 //Tutti i parcheggi
+
+
 /**
  * @swagger
- * /api/parcheggi: 
- *  get:
- *   summary: Restituisce una lista di parcheggi.
- *    description: Restituisce una lista di parcheggi dal server.
+ * /api/parcheggi:
+ *   get:
+ *     summary: Restituisce una lista di parcheggi.
+ *     description: Restituisce coordinate cartesiane ed ID di tutti i parcheggi, al fine di generare la mappa.
  *     responses:
  *       200:
- *         description: Una lista di parcheggi.
+ *         description: Tutte le coordinate + _ID dei parcheggi.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 data:
+ *                 parcheggi:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
- *                       $oid:
+ *                       _id:
  *                         type: string
  *                         description: La chiave assegnata da MongoDB.
- *                         example: 61acba7f736680ca6f6e1f52
- *                       proprietario_ID:
- *                         type: string
- *                         description: ID del proprietario.
- *                         example: 61b472c0c421271a6aa2d85f
+ *                         example: 61acba7f736680ca6f6e1f52      
  *                       coord_N:
  *                          type: float
  *                          description: Latitudine del parcheggio
@@ -101,83 +95,51 @@ app.listen(5000, () => {
  *                          type: float
  *                          description: Longitudine del parcheggio
  *                          example: 11.11515
- *                       via:
- *                          type: string
- *                          description: Via nel quale è situato il parcheggio
- *                          example: Via Roberto da Sanseverino
- *                       citta:
- *                          type: string
- *                          description: Città nel quale è situato il parcheggio
- *                          example: Trento
- *                       nome:
- *                          type: string
- *                          description: Nome del parcheggio
- *                          example: Parcheggio Sanseverino
- *                       CAP:
- *                          type: integer
- *                          description: CAP del parcheggio
- *                          example: 38121
- *                       posti_disponibili:
- *                          type: integer
- *                          description: Numero di posti attualmente disponibili
- *                          example: 45
- *                       posti_totali:
- *                          type: integer
- *                          description: Numero di posti totali del parcheggio
- *                          example: 100
- *                       tariffa_oraria:
- *                          type: float
- *                          description: Tariffa oraria del parcheggio
- *                          example: 1.5
- *                       is_preferito:
- *                          type: boolean
- *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
- *                          example: false
  */
 app.get('/api/parcheggi', (request, response) => {
 
   var select = {  //Seleziono solo i campi utili a generare la mappa
-    '_id' : 1,
-    'coord_N' : 1,
-    'coord_E' : 1,
-    'proprietario_ID' : 0,
-    'via' : 0,
-    'citta' : 0,
-    'nome' : 0,
-    'CAP' : 0,
-    'posti_disponibili' : 0,
-    'posti_totali' : 0,
-    'tariffa_oraria' : 0,
-    'is_preferito' : 0
+    _id : 1,
+    coord_N : 1,
+    coord_E : 1
   }
-
-
-  database.collection("parcheggi").find({},select).toArray((error, result) => {
+  
+  database.collection("parcheggi").find({}).project(select).toArray((error, parcheggi) => {
     if(error){
       console.log(error);
     }
-    response.send(result);
+    response.send({parcheggi});
   })
 });
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// PARCHEGGIO CON FILTRI DA RIFARE | PARCHEGGIO CON FILTRI DA RIFARE | PARCHEGGIO CON FILTRI DA RIFARE | PARCHEGGIO CON FILTRI DA RIFARE | 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7////
-
 /**
  * @swagger
- * /api/parcheggi/{id}: 
+ * /api/parcheggi/filtri?nome&tariffa&preferiti: 
  *   get:
  *     summary: Restituisce una lista di parcheggi selezionadoli attraverso dei filtri.
  *     description: Restituisce una lista di parcheggi dal server.
  *     parameters:
- *       - in: path
- *         name: id
+ *       - in: query
+ *         name: nome
  *         schema:
  *             type: string
- *         required: true
- *         description: id del parcheggio.
+ *         allowReserved: true
+ *         default: ''
+ *         description: Sottostringa da cercare nel nome del parcheggio
+ *       - in: query
+ *         name: tariffa
+ *         schema:
+ *             type: float
+ *         allowReserved: true
+ *         default: 2.0
+ *         description: Tariffa oraria massima da cercare
+ *       - in: query
+ *         name: preferiti
+ *         schema:
+ *             type: boolean
+ *         allowReserved: true
+ *         default: false
+ *         description: Indica se il filtro preferiti è attivo/disattivo
  *     responses:
  *       200:
  *         description: Una lista di parcheggi.
@@ -186,12 +148,12 @@ app.get('/api/parcheggi', (request, response) => {
  *             schema:
  *               type: object
  *               properties:
- *                 data:
+ *                 parcheggi:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
- *                       $oid:
+ *                       _id:
  *                         type: string
  *                         description: La chiave assegnata da MongoDB.
  *                         example: 61acba7f736680ca6f6e1f52
@@ -240,7 +202,6 @@ app.get('/api/parcheggi', (request, response) => {
  *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
  *                          example: false
  */
-//parcheggi con filtri
 app.get('/api/parcheggi/filtri', (request, response) => {
   var data = {
     "nome" : request.query['nome'],
@@ -263,32 +224,29 @@ app.get('/api/parcheggi/filtri', (request, response) => {
     }
   }
 
-  database.collection("parcheggi").find(query).toArray((error, result) => {
+  database.collection("parcheggi").find(query).toArray((error, parcheggi) => {
     if(error){
       console.log(error);
     }
-    response.send(result);
+    response.send({parcheggi});
   })
 });
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | CAMBIATO URL | 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7////
-
 //parcheggio singolo
 /**
  * @swagger
- * /api/parcheggi/parcheggio/{id}:
+ * /api/parcheggi/{id}:
  *   get:
  *     summary: Restituisce un singolo parcheggio.
- *     description: Restituisce un singolo parcheggio dal server.
+ *     description: Restituisce i dati del parcheggio con id specificato dal server.
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *             type: string
  *         required: true
+ *         default: '61acba7f736680ca6f6e1f52'
  *         description: id del parcheggio
  *     responses:
  *       200:
@@ -298,10 +256,10 @@ app.get('/api/parcheggi/filtri', (request, response) => {
  *             schema:
  *               type: object
  *               properties:
- *                 data:
+ *                 parcheggio:
  *                   type: object
  *                   properties:
- *                       $oid:
+ *                       _id:
  *                         type: string
  *                         description: La chiave assegnata da MongoDB.
  *                         example: 61acba7f736680ca6f6e1f52
@@ -349,37 +307,68 @@ app.get('/api/parcheggi/filtri', (request, response) => {
  *                          type: boolean
  *                          description: booleano di appartenenza ai "preferiti" del singolo utente. (deriva da una semplificazione del database)
  *                          example: false
+ *     400:
+ *       description: Formato _ID non valido
+ *     404:
+ *       description: Parcheggio non trovato
  */
 app.get('/api/parcheggi/:id', (request, response) => {
-  database.collection('parcheggi').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
-    if(error){
-      console.log(error);
+
+  var id;
+
+  try{
+    id = ObjectID(request.params.id)
+  }catch (error){
+    response.status(400).send("Formato ID non valido");
+    return;
+  }
+
+  database.collection('parcheggi').findOne({ "_id" : id })
+  .then(parcheggio => {
+    if(parcheggio != null){
+      response.send({parcheggio});
     }
-    response.send(result);
-  });
+    else{
+      response.status(404).send();
+    }
+  })
+  .catch(err => console.log(err));
 });
 
 
 //Aggiornamento preferiti parcheggio
 /**
  * @swagger
- * /api/parcheggi/preferiti/{id}/update:
+ * /api/parcheggi/preferiti/{id}/{update}:
  *   post:
  *     summary: Aggiorna un parcheggio come preferito.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               $oid:
- *                  type: string
- *                  description: Chiave assegnata da MongoDB.
- *                  example: 61acb216736680ca6f6e1f14
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         default: 61acba7f736680ca6f6e1f52
+ *         description: id del parcheggio
+ *       - in: path
+ *         name: update
+ *         schema:
+ *             type: boolean
+ *         required: true
+ *         default: false
+ *         description: Nuovo stato preferenza del parcehggio
  *     responses:
- *       201:
+ *       200:
  *         description: successful executed
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Aggiornamento effettuato, Nuovo stato -> true/false
+ *       404:
+ *         description: Parcheggio non trovato
+ *       400:
+ *         description: Formato _ID non valido
 */
 app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  
@@ -387,16 +376,26 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
     is_preferito : (request.params.update == "true")
   }
 
-  database.collection('parcheggi').updateOne({ "_id" : ObjectID(request.params.id) },{ $set : data}, function(error, result) {
-    if(error){
-      console.log(error);
-      response.send("Aggiornamento FALLITO");
+  var id;
+  try{
+    id = ObjectID(request.params.id)
+  }catch (error){
+    response.status(400).send("Formato ID non valido");
+    return;
+  }
+
+  database.collection('parcheggi').updateOne({ "_id" : id },{ $set : data})
+  .then(result => {
+    if(result.matchedCount > 0){
+      response.send("Aggiornamento effettuato\nNuovo stato -> "+request.params.update);
     }
-    response.send("Aggiornamento Effettuato: "+request.params.update);
-  });
+    else{
+      response.status(404).send();
+    }
+  })
+  .catch(err => console.log(err));
+
 });
-
-
 
 
 //Dati di un singolo utente
@@ -405,26 +404,27 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  * /api/utenti/{id}:
  *   get:
  *     summary: Restituisce i dati di un singolo Utente.
- *     description: Restituisce un singolo parcheggio dal server.
+ *     description: Restituisce i dati di un singolo utente dal server.
  *     parameters:
  *       - in: path
- *         name: name
+ *         name: id
  *         schema:
  *             type: string
  *         required: true
- *         description: id di un utente.
+ *         default: 61acb903736680ca6f6e1f3f
+ *         description: _ID utente.
  *     responses:
  *       200:
- *         description: Un oggetto parcheggio.
+ *         description: dati di un singolo utente
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 data:
+ *                 utente:
  *                   type: object
  *                   properties:
- *                       $oid:
+ *                       _id:
  *                         type: string
  *                         description: La chiave assegnata da MongoDB.
  *                         example: 61acb216736680ca6f6e1f14
@@ -463,55 +463,69 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  *                       credito_wallet:
  *                          type: float
  *                          description: Credito attuale del wallet dell'utente
- *                          example: 11.75                      
+ *                          example: 11.75
+ *       404:
+ *         description: Utente non trovato
+ *       400:
+ *         description: Formato _ID non valido              
  */
 app.get('/api/utenti/:id', (request, response) => {
-  database.collection('utenti').findOne({ "_id" : ObjectID(request.params.id) }, function (error, result){
-    if(error){
-      console.log(error);
+  var id;
+  try{
+    id = ObjectID(request.params.id);
+  }catch (error){
+    response.status(400).send("Formato ID non valido");
+    return;
+  }
+
+  database.collection('utenti').findOne({ "_id" : id })
+  .then(utente => {
+    if(utente != null){
+      response.send({utente});
     }
-    response.send(result);
-  });
+    else{
+      response.status(404).send();
+    }
+  })
+  .catch(err => console.log(err));
 });
-
-
-
 
 
 //prendo tutte le prenotazioni di un utente specifico
 /**
  * @swagger
- * /api/prenotazioni/{id}: 
+ * /api/prenotazioni/{id}:
  *   get:
  *     summary: Restituisce una lista di prenotazioni di un utente specifico.
  *     description: Restituisce una lista di prenotazioni dal server.
- *      parameters:
+ *     parameters:
  *       - in: path
- *         name: name
+ *         name: id
  *         schema:
  *             type: string
  *         required: true
- *         description: id di un utente.
+ *         default: 61acb903736680ca6f6e1f3f
+ *         description: ID utente.
  *     responses:
  *       200:
- *         description: Una lista di prenotazioni.
+ *         description: Tutte le prenotazioni di un utente.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 data:
+ *                 prenotazioni:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
- *                       $oid:
+ *                       _id:
  *                         type: string
  *                         description: La chiave assegnata da MongoDB.
  *                         example: 61b4ec5ac421271a6aa2d8e0
  *                       utente_ID:
  *                         type: string
- *                         description: ID di un utente.
+ *                         description: ID utente.
  *                         example: 61b47382c421271a6aa2d86e
  *                       id_parcheggio:
  *                          type: string
@@ -532,17 +546,26 @@ app.get('/api/utenti/:id', (request, response) => {
  *                       costo:
  *                          type: float
  *                          description: Costo della prenotazione
- *                          example: 2.25
+ *                          example: 2.25   
+ *       400:
+ *         description: formato _ID errato       
  */
 app.get('/api/prenotazioni/:id', (request, response) => {
-  database.collection("prenotazioni").find({ 'utente_ID' : request.params.id }).toArray((error, result) => {
+  var id;
+  try{
+    id = ObjectID(request.params.id);
+  }catch (error){
+    response.status(400).send();
+    return;
+  }
+
+  database.collection("prenotazioni").find({ 'utente_ID' : request.params.id }).toArray((error, prenotazioni) => {
     if(error){
       console.log(error);
     }
-    response.send(result);
-  })
+    response.send({prenotazioni});
+  });
 });
-
 
 
 
@@ -551,9 +574,24 @@ app.get('/api/prenotazioni/:id', (request, response) => {
 //Nuova prenotazione
 /**
  * @swagger
- * /api/prenotazioni:
+ * /api/prenotazioni/{user_id}/{park_id}:
  *   post:
  *     summary: Creo una nuova prenotazione.
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         default: 61acb903736680ca6f6e1f3f
+ *         description: ID utente.
+ *       - in: path
+ *         name: park_id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         default: 61acba7f736680ca6f6e1f52
+ *         description: ID parcheggio.
  *     requestBody:
  *       required: true
  *       content:
@@ -561,50 +599,45 @@ app.get('/api/prenotazioni/:id', (request, response) => {
  *           schema:
  *             type: object
  *             properties:
- *                       $oid:
- *                         type: string
- *                         description: La chiave assegnata da MongoDB.
- *                         example: 61b4ec5ac421271a6aa2d8e0
- *                       utente_ID:
- *                         type: string
- *                         description: ID di un utente.
- *                         example: 61b47382c421271a6aa2d86e
- *                       id_parcheggio:
- *                          type: string
- *                          description: ID di un parcheggio
- *                          example: 61acba7f736680ca6f6e1f52
- *                       giorno:
- *                          type: string
- *                          description: Data della prenotazione
- *                          example: 2021-11-11
- *                       ora_inizio:
- *                          type: string
- *                          description: Ora di inizio della prenotazione
- *                          example: 10:30
- *                       ora_fine:
- *                          type: string
- *                          description: Ora di fine della prenotazione
- *                          example: 12:00
- *                       costo:
- *                          type: float
- *                          description: Costo della prenotazione
- *                          example: 2.25
+ *                 ore:
+ *                   type: integer
+ *                   description: ore di sosta
+ *                   example: 2
+ *                 nome_parcheggio:
+ *                   type: string
+ *                   description: nome del parcheggio
+ *                   example: Parcheggio Sanseverino
  *     responses:
- *       201:
+ *       200:
  *         description: successful executed
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Prenotazione aggiunta con successo! Puoi visualizzarla alla sezione 'Prenotazioni'
+ *       400:
+ *         description: Formato _ID non valido
 */
-app.post('/api/prenotazioni', (request, response) => {
+app.post('/api/prenotazioni/:user_id/:park_id', (request, response) => {
+  try{
+    user_id = ObjectID(request.params.user_id);
+    park_id = ObjectID(request.params.park_id);
+  }catch (error){
+    response.status(400).send();
+    return;
+  }
+
   var today = new Date()
   var now = today.getHours()+":"+today.getMinutes();
   var actualDay = today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
 
   today.addHours(request.body['ore']);
   var later = today.getHours()+":"+today.getMinutes();
-  var costo = request.body['ore']*request.body['tariffa'];
+  var costo = request.body['ore']*request.body['nome_parcheggio'];
   
   var data = {
-    "utente_ID" : request.body['utente_ID'],
-    "id_parcheggio" : request.body['id_parcheggio'],
+    "utente_ID" : request.params.user_id,
+    "id_parcheggio" : request.params.park_id,
     "nome_parcheggio" : request.body['nome_parcheggio'], 
     "giorno" : actualDay,
     "ora_inizio" : now,
@@ -612,15 +645,12 @@ app.post('/api/prenotazioni', (request, response) => {
     "costo" : costo
   };
 
-  database.collection("prenotazioni").insertOne(data, function(error, result){ 
-    if(error){
-      console.log(error);
-    }
-    response.send("Prenotazione aggiunta con successo!\nPuoi visualizzarla alla sezione 'Prenotazioni'");
-  })
+  database.collection("prenotazioni").insertOne(data)
+    .then(result => {
+      response.send("Prenotazione aggiunta con successo!\nPuoi visualizzarla alla sezione 'Prenotazioni'");
+    })
+    .catch(err => console.log(err));
 });
-
-
 
 
 
@@ -636,20 +666,31 @@ app.post('/api/prenotazioni', (request, response) => {
  *         schema:
  *             type: string
  *         required: true
- *         description: 
+ *         default: 61b4eca2c421271a6aa2d8e1
+ *         description: _ID della prenotazione
  *     responses:
  *       200:
- *         description: the product was deleted
+ *         description: Prenotazione eliminata
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Prenotazione eliminata con successo!
  *       404:
- *         description: the product was not found
+ *         description: Prenotazione non trovata
 */
 app.delete('/api/prenotazioni/:id_pren', (request, response) => {
-  database.collection("prenotazioni").deleteOne({ "_id" : ObjectID(request.params.id_pren) }, function (error, result){
-    if(error){
-      console.log(error);
-    }
-    response.send("Prenotazione eliminata con successo!");
-  });
+  database.collection("prenotazioni").deleteOne({ "_id" : ObjectID(request.params.id_pren) })
+    .then(result => {
+      if(result.deletedCount > 0){
+        response.send("Prenotazione eliminata con successo!");
+        console.log("ELIMINATA");
+      }
+      else{
+        response.status(404).send();
+        console.log("NON TROVATA");
+      }
+    })
 });
 
 
@@ -662,6 +703,14 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
  * /api/utenti/{id}:
  *   post:
  *     summary: Modifico uno specifico utente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         default: 61acb903736680ca6f6e1f3f
+ *         description: ID utente.
  *     requestBody:
  *       required: true
  *       content:
@@ -669,13 +718,42 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
  *           schema:
  *             type: object
  *             properties:
- *               $oid:
+ *               nome:
  *                  type: string
  *                  description: Chiave assegnata da MongoDB.
- *                  example: 61acb216736680ca6f6e1f14
+ *                  example: Luca
+ *               cognome:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: Cazzola
+ *               email:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: LC@gmail.com
+ *               data_nascita:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: 2001-07-09
+ *               targa:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: AA000AA
+ *               carta_credito:
+ *                  type: string
+ *                  description: Chiave assegnata da MongoDB.
+ *                  example: 1234123412341234
  *     responses:
- *       201:
+ *       200:
  *         description: successful executed
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Aggiornamento effettuato
+ *       400:
+ *         description: Campi non validi
+ *       404:
+ *         description: Utente non trovato
 */
 app.post('/api/utenti/:id', (request, response) => {
   var data = {
@@ -686,7 +764,6 @@ app.post('/api/utenti/:id', (request, response) => {
     "targa" : request.body['targa'],
     "carta_credito" : request.body['carta_credito']
   };
-  
   
   //Spazi bianchi capo-coda stringa
   data.nome = data.nome.trim();
@@ -713,13 +790,26 @@ app.post('/api/utenti/:id', (request, response) => {
     return;
   }
 
-  database.collection('utenti').updateOne({ "_id" : ObjectID(request.params.id) },{ $set : data}, function(error, result) {
-    if(error){
-      console.log(error);
-      response.send("Aggiornamento FALLITO");
+  var id;
+
+  try{
+    id = ObjectID(request.params.id);
+  }catch (error){
+    response.status(400).send("Formato ID non valido");
+    return;
+  }
+
+  database.collection('utenti').updateOne({ "_id" : id },{ $set : data})
+  .then(result => {
+    if(result.matchedCount > 0){
+      response.send("Aggiornamento Effettuato");
     }
-    response.send("Aggiornamento Effettuato");
-  });
+    else{
+      response.status(404).send();
+    }
+  })
+  .catch(err => console.log(err));
+
 });
 
 function hasWhiteSpace(s){

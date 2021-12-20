@@ -9,7 +9,7 @@ var map = new mapboxgl.Map({
 //PARCHEGGI
 var request = new XMLHttpRequest();
 
-request.open('GET', 'http://localhost:5000/api/parcheggi', true);
+request.open('GET', 'http://localhost:49126/api/parcheggi', true);
 var data;
 request.onload = function () {
     data = JSON.parse(this.response);

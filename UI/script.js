@@ -6,7 +6,7 @@ getUserName();
 function getUserName(){
     var request = new XMLHttpRequest();
 
-    request.open('GET', 'http://localhost:5000/api/utenti/'+active_user_id, true);
+    request.open('GET', 'http://localhost:49126/api/utenti/'+active_user_id, true);
     var data;
     request.onload = function () {
         data = JSON.parse(this.response);
@@ -25,7 +25,7 @@ function getUserName(){
 function getUserData(){
     var request = new XMLHttpRequest();
 
-    request.open('GET', 'http://localhost:5000/api/utenti/'+active_user_id, true);
+    request.open('GET', 'http://localhost:49126/api/utenti/'+active_user_id, true);
     var data;
     request.onload = function () {
         data = JSON.parse(this.response);
@@ -48,7 +48,7 @@ function getUserData(){
 function setUserData(){    
     var request = new XMLHttpRequest();
 
-    request.open('POST', 'http://localhost:5000/api/utenti/'+active_user_id, true);
+    request.open('POST', 'http://localhost:49126/api/utenti/'+active_user_id, true);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     var data = {
@@ -78,7 +78,7 @@ function setUserData(){
 function getPrenotazioni(){
     var request = new XMLHttpRequest();
 
-    request.open('GET', 'http://localhost:5000/api/prenotazioni/'+active_user_id, true);
+    request.open('GET', 'http://localhost:49126/api/prenotazioni/'+active_user_id, true);
     var data;
     request.onload = function () {
         data = JSON.parse(this.response);
@@ -99,7 +99,7 @@ function getPrenotazioni(){
 function deletePrenotazione(idPren){
     var request = new XMLHttpRequest();
 
-    request.open('DELETE', 'http://localhost:5000/api/prenotazioni/'+idPren, true);
+    request.open('DELETE', 'http://localhost:49126/api/prenotazioni/'+idPren, true);
 
     request.onload = function () {
         
@@ -129,7 +129,7 @@ function addPrenotazione (idPark, nomePark, tariffa){
         'tariffa' : parseFloat(tariffa)
     }
 
-    request.open('POST', 'http://localhost:5000/api/prenotazioni', true);
+    request.open('POST', 'http://localhost:49126/api/prenotazioni', true);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     request.onload = function () {
@@ -150,7 +150,7 @@ function addPrenotazione (idPark, nomePark, tariffa){
 function switchStar (idPark, update) {
     var request = new XMLHttpRequest();
 
-    request.open('POST', 'http://localhost:5000/api/parcheggi/preferiti/'+idPark+'/'+update, true);
+    request.open('POST', 'http://localhost:49126/api/parcheggi/preferiti/'+idPark+'/'+update, true);
 
     request.onload = function () {
         
@@ -174,7 +174,7 @@ function getFilteredParcheggi (){
         'preferiti' : (document.getElementById('star_filter').getAttribute('src') == 'IMG/start.svg')
     };
 
-    request.open('GET', 'http://localhost:5000/api/parcheggi/filtri?nome='+data.nome+'&tariffa='+data.tariffa+'&preferiti='+data.preferiti, true);
+    request.open('GET', 'http://localhost:49126/api/parcheggi/filtri?nome='+data.nome+'&tariffa='+data.tariffa+'&preferiti='+data.preferiti, true);
 
     request.onload = function () {
         if (request.status >= 200 && request.status < 400){
@@ -213,7 +213,7 @@ function open_park(park_id){
     var highLight = document.getElementById('parcheggioHighLight');
 
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:5000/api/parcheggi/'+park_id, true);  
+    request.open('GET', 'http://localhost:49126/api/parcheggi/'+park_id, true);  
     
     request.onload = function () {
         park = JSON.parse(this.response);
