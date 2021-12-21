@@ -13,7 +13,7 @@ Per accedere alla documentazione bisogna avere digitato il comando "npm start" d
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
 
 
-
+<BR><BR><BR>
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
 </p>
