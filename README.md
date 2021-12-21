@@ -1,6 +1,6 @@
 # APIs progetto Smart-Parking
 
-Qui sono definite tutte le API del progetto <strong>Smart Parking</strong>, implementate dal gruppo G20 del corso di Ingegneria del Software AA 2021-2022.
+Qui sono definite tutte le API del progetto <b>Smart Parking</b>, implementate dal gruppo G20 del corso di Ingegneria del Software AA 2021-2022.
 
 Le APIs qui definite raccolgono l'insieme dlele procedure che permettono di fornire i dati necessari al funzionamento dell'applicazione Smart Parking.
 Per soddifare queste richieste sono state importate le seguenti librerie:
