@@ -8,8 +8,8 @@ Per soddifare queste richieste sono state importate le seguenti librerie:
 * Swagger
 * JSDoc
 
-Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API 
-attraverso il seguente link avendo digitato il comando "npm start" dalla cartella API:
+Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API. 
+Per accedere alla documentazione bisogna avere digitato il comando "npm start" dalla cartella API e poi accedere al seguente url:
 <p align="center"> http://localhost:49126/api-docs/ </p>
 
 
