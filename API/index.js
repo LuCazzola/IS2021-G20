@@ -67,6 +67,8 @@ app.listen(49126, () => {
  * @swagger
  * /api/parcheggi:
  *   get:
+ *     tags:
+ *       - Parcheggi
  *     summary: Restituisce una lista di parcheggi.
  *     description: Restituisce coordinate cartesiane ed ID di tutti i parcheggi, al fine di generare la mappa.
  *     responses:
@@ -117,6 +119,8 @@ app.get('/api/parcheggi', (request, response) => {
  * @swagger
  * /api/parcheggi/filtri?nome&tariffa&preferiti: 
  *   get:
+ *     tags:
+ *       - Parcheggi
  *     summary: Restituisce una lista di parcheggi selezionadoli attraverso dei filtri.
  *     description: Restituisce una lista di parcheggi dal server.
  *     parameters:
@@ -239,6 +243,8 @@ app.get('/api/parcheggi/filtri', (request, response) => {
  * @swagger
  * /api/parcheggi/{id}:
  *   get:
+ *     tags:
+ *       - Parcheggi
  *     summary: Restituisce un singolo parcheggio.
  *     description: Restituisce i dati del parcheggio con id specificato dal server.
  *     parameters:
@@ -342,6 +348,8 @@ app.get('/api/parcheggi/:id', (request, response) => {
  * @swagger
  * /api/parcheggi/preferiti/{id}/{update}:
  *   post:
+ *     tags:
+ *       - Parcheggi
  *     summary: Aggiorna un parcheggio come preferito.
  *     parameters:
  *       - in: path
@@ -404,6 +412,8 @@ app.post('/api/parcheggi/preferiti/:id/:update', (request, response) => {
  * @swagger
  * /api/utenti/{id}:
  *   get:
+ *     tags:
+ *       - Utenti
  *     summary: Restituisce i dati di un singolo Utente.
  *     description: Restituisce i dati di un singolo utente dal server.
  *     parameters:
@@ -497,6 +507,8 @@ app.get('/api/utenti/:id', (request, response) => {
  * @swagger
  * /api/prenotazioni/{id}:
  *   get:
+ *     tags:
+ *       - Prenotazioni
  *     summary: Restituisce una lista di prenotazioni di un utente specifico.
  *     description: Restituisce una lista di prenotazioni dal server.
  *     parameters:
@@ -577,6 +589,8 @@ app.get('/api/prenotazioni/:id', (request, response) => {
  * @swagger
  * /api/prenotazioni/{user_id}/{park_id}:
  *   post:
+ *     tags:
+ *       - Prenotazioni
  *     summary: Creo una nuova prenotazione.
  *     parameters:
  *       - in: path
@@ -658,6 +672,8 @@ app.post('/api/prenotazioni/:user_id/:park_id', (request, response) => {
  * @swagger
  * /api/prenotazioni/{id_pren}:
  *   delete:
+ *     tags:
+ *       - Prenotazioni
  *     summary: Elimino la prenotazione selezionata.
  *     parameters:
  *       - in: path
@@ -693,12 +709,13 @@ app.delete('/api/prenotazioni/:id_pren', (request, response) => {
 
 
 
-
 //Modifica specifico utente
 /**
  * @swagger
  * /api/utenti/{id}:
  *   post:
+ *     tags:
+ *       - Utenti
  *     summary: Modifico uno specifico utente.
  *     parameters:
  *       - in: path
