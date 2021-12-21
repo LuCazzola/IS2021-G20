@@ -15,7 +15,7 @@ Per accedere alla documentazione bisogna avere digitato il comando "npm start" d
 
 
 <p align="center">
-  <img src="UI/IMG/Front_End_SmartParknig.png">
+  <img src="UI/IMG/Front_End_SmartParknig.png" alt="Immagine Front End>
 </p>
 <BR><BR><BR><BR>
 
