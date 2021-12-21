@@ -15,7 +15,7 @@ Per accedere alla documentazione bisogna avere digitato il comando "npm start" d
 
 
 <p align="center">
-  <img src="./UI/IMG/Front_End_SmartParknig.png" alt="Immagine Front End">
+  <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
 </p>
 <BR><BR><BR><BR>
 
