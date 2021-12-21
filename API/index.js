@@ -629,20 +629,18 @@ app.post('/api/prenotazioni/:user_id/:park_id', (request, response) => {
   }
 
   var today = new Date()
-  var now = today.getHours()+":"+today.getMinutes();
-  var actualDay = today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+  var now = today.getDate()+"/"+today.getMonth()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes();
 
   today.addHours(request.body['ore']);
-  var later = today.getHours()+":"+today.getMinutes();
-  var costo = request.body['ore']*request.body['nome_parcheggio'];
+  var later = today.getDate()+"/"+today.getMonth()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes();
+  var costo = (request.body['ore']*request.body['tariffa']).toFixed(2);
   
   var data = {
     "utente_ID" : request.params.user_id,
     "id_parcheggio" : request.params.park_id,
     "nome_parcheggio" : request.body['nome_parcheggio'], 
-    "giorno" : actualDay,
-    "ora_inizio" : now,
-    "ora_fine" : later,
+    "inizio" : now,
+    "fine" : later,
     "costo" : costo
   };
 
