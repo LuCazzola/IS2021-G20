@@ -9,7 +9,7 @@ Per soddifare queste richieste sono stati importati i seguenti moduli:
 * JSDoc
 
 Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API. 
-Per accedere alla documentazione bisogna avere digitato il comando "npm start" dalla cartella API e poi accedere al seguente url:
+Per consultare la documentazione bisogna avere scaricato la repository, andare nella cartella "IS2021-G20/API" e digitare il comando "npm start" e poi accedere al seguente url:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
 
 
