@@ -9,8 +9,9 @@ Per soddifare queste richieste sono state importate le seguenti librerie:
 * JSDoc
 
 Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API 
-attraverso il seguente link:
-http://localhost:8080/api-docs
+attraverso il seguente link avendo digitato il comando "npm start" dalla cartella API:
+<p align="center"> http://localhost:49126/api-docs/ </p>
+
 
 
 <p align="center">
