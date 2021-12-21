@@ -787,11 +787,13 @@ app.post('/api/utenti/:id', (request, response) => {
   data.targa = data.targa.trim();
   data.carta_credito = data.carta_credito.trim();
 
-  if(data.nome == "" || data.cognome == "" || data.email == "" || data.data_nascita == "" || data.targa == "" || data.carta_credito == ""){
+  if(data.nome == "" || data.cognome == "" || data.email == "" ||
+     data.data_nascita == "" || data.targa == "" || data.carta_credito == ""){
     response.status(400).send("I campi non possono essere vuoti");
     return;
   } 
-  if(hasWhiteSpace(data.nome) || hasWhiteSpace(data.cognome) || hasWhiteSpace(data.data_nascita) || hasWhiteSpace(data.targa) || hasWhiteSpace(data.carta_credito)){
+  if(hasWhiteSpace(data.nome) || hasWhiteSpace(data.cognome) ||
+     hasWhiteSpace(data.data_nascita) || hasWhiteSpace(data.targa) || hasWhiteSpace(data.carta_credito)){
     response.status(400).send("Non è possibile inserire spazi vuoti!");
     return;
   }
@@ -805,7 +807,6 @@ app.post('/api/utenti/:id', (request, response) => {
   }
 
   var id;
-
   try{
     id = ObjectID(request.params.id);
   }catch (error){
@@ -823,7 +824,6 @@ app.post('/api/utenti/:id', (request, response) => {
     }
   })
   .catch(err => console.log(err));
-
 });
 
 function hasWhiteSpace(s){
