@@ -34,7 +34,8 @@ Nella cartella "./TEST" è stato implementato uno script per eseguire il test di
   
 Per eseguire il test bisogna aprire il terminale e accedere alla cartella "./SERVER" e digitare il comando "npm test".
 NB: Poiché la Delete si basa sul campo _id della prenotazione (che è univoco) nel caso in cui si vogliano fare altri test basta modificare la variabile “pren_id_test._N” nell’url di chiamata alla API.
-  
+<BR><BR>
+
 La licenza utilizzata per questo progetto è <b>MIT License</b>, prima dell'utilizzo del software consultare l'apposita documentazione.
 <BR><BR>
 ## Contributors:
