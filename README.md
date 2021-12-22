@@ -18,13 +18,15 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 <BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando "npm start". 
 <BR> Successivamente cliccare sul seguente URL:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
-<br>Per testare l'applicazione è sufficiente avviare al file index.html all'interno della cartella <a href="https://github.com/LuCazzola/IS2021-G20/blob/main/UI">UI</a>
-  
+
+
 <BR><BR><BR>
   Segue l'homepage dell'applicazione <b>SmartParking</b>:
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
 </p>
+<BR><BR>
+disponibile al seguente link: <a href="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/index.html">homepage</a>
 <BR><BR><BR>
 
 Nella cartella "./TEST" è stato implementato uno script per eseguire il test di tre APIs:
@@ -49,4 +51,7 @@ This study has been designed, developed, and reported by the following developer
 
 * <b>Luca Cazzola</b> - Università degli studi di Trento (Unitn), Trento - Italy
 
-For any information, feel free to contact us by writing an email.
+For any information, feel free to contact us by writing an email:
+  dennis.cattoni@studenti.unitn.it
+  sergio.brodesco@studenti.unitn.it
+  luca.cazzola-1@studenti.unitn.it
