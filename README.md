@@ -18,7 +18,7 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 <BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando "npm start". 
 <BR> Successivamente cliccare sul seguente URL:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
-<br>Per provare l'applicazione è sufficiente avviare il file <b>"index.html"</b> all'interno della cartella <b>"UI"</b>
+<br>Per provare l'applicazione è sufficiente aprire il file <b>"index.html"</b> contenuto all'interno della cartella <b>"UI"</b> con un Browser.
 <br><b>NB: </b>Affinché l'interfaccia funzioni il comando <b>"npm start"</b> deve esser stato lanciato in precedenza 
   
 <BR><BR>
