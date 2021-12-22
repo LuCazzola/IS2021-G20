@@ -321,25 +321,28 @@ app.get('/api/parcheggi/filtri', (request, response) => {
  */
 app.get('/api/parcheggi/:id', (request, response) => {
 
-  var id;
+  MongoClient.connect( CONNECTION_STRING,  { useNewUrlParser: true }, function( err, client ) {
+    database  = client.db(DB);
 
-  try{
-    id = ObjectID(request.params.id)
-  }catch (error){
-    response.status(400).send("Formato ID non valido");
-    return;
-  }
+    var id;
+    try{
+      id = ObjectID(request.params.id)
+    }catch (error){
+      response.status(400).send("Formato ID non valido");
+      return;
+    }
 
-  database.collection('parcheggi').findOne({ "_id" : id })
-  .then(parcheggio => {
-    if(parcheggio != null){
-      response.send({parcheggio});
-    }
-    else{
-      response.status(404).send();
-    }
-  })
-  .catch(err => console.log(err));
+    database.collection('parcheggi').findOne({ "_id" : id })
+    .then(parcheggio => {
+      if(parcheggio != null){
+        response.send({parcheggio});
+      }
+      else{
+        response.status(404).send();
+      }
+    })
+    .catch(err => console.log(err));
+  });
 });
 
 
@@ -655,7 +658,7 @@ app.post('/api/prenotazioni/:user_id/:park_id', (request, response) => {
     "nome_parcheggio" : request.body['nome_parcheggio'], 
     "inizio" : now,
     "fine" : later,
-    "costo" : costo
+    "costo" : parseFloat(costo)
   };
 
   database.collection("prenotazioni").insertOne(data)
@@ -835,3 +838,4 @@ Date.prototype.addHours = function(h) {
   return this;
 }
 
+module.exports = app;

@@ -7,7 +7,7 @@
     "start": "node API",
     "test": "node TEST | tap-spec"
   },
-  "author": "",
+  "author": "AA2021/2022 IS G20: Luca Cazzola, Sergio Brodesco, Dennis Cattoni",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "supertest": "^6.1.6",
+    "tap-spec": "^5.0.0",
     "tape": "^5.3.2"
   }
 }
