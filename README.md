@@ -25,13 +25,12 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
 </p>
-<BR><BR><BR><BR>
+<BR><BR><BR>
 
 Nella cartella "./TEST" è stato implementato uno script per eseguire il test di tre APIs:
 * Delete che permette di eliminare una prenotazione specifica
 * Post che aggiorna i dati di un utente
 * Get che restituisce un singolo parcheggio
-<BR>
 per eseguire il test bisogna aprire il terminale e accedere alla cartella "./SERVER" e digitare il comando "npm test".
 NB: Poiché la Delete si basa sul campo _id della prenotazione (che è univoco) nel caso in cui si vogliano fare altri test basta modificare la variabile “pren_id_test._N” nell’url di chiamata alla API.
   
