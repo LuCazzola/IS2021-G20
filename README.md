@@ -20,7 +20,7 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
 <br>Per provare l'applicazione è sufficiente aprire il file <b>"index.html"</b> contenuto all'interno della cartella <b>"UI"</b> con un Browser.
 <br><b>NB: </b>Affinché l'interfaccia funzioni il comando <b>"npm start"</b> deve esser stato lanciato in precedenza.
-<br> Gli unici link funzionanti sono "vedi profilo", "cerca parcheggio" e "prenotazione", gli altri sono link puramente estetici per l'interfaccia.
+<br>Nel menù i link funzionanti sono "vedi profilo", "cerca parcheggio" e "prenotazione", gli altri sono link puramente estetici per l'interfaccia.
   
 <BR><BR><BR>
   Segue l'homepage dell'applicazione <b>SmartParking</b>:
