@@ -21,7 +21,8 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 <br>Per provare l'applicazione è sufficiente aprire il file <b>"index.html"</b> contenuto all'interno della cartella <b>"UI"</b> con un Browser.
 <br><b>NB: </b>Affinché l'interfaccia funzioni il comando <b>"npm start"</b> deve esser stato lanciato in precedenza.
 <br> Gli unici link funzionanti sono "vedi profilo", "cerca parcheggio" e "prenotazione", gli altri sono di appoggio per l'interfaccia.
-<BR><BR>
+  
+<BR><BR><BR>
   Segue l'homepage dell'applicazione <b>SmartParking</b>:
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
