@@ -27,6 +27,13 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 </p>
 <BR><BR><BR><BR>
 
+Nella cartella test è stato implementato uno script per eseguire il test di tre Apis:
+* Delete che permette di eliminare una prenotazione specifica
+* Post che aggiorna i dati di un utente
+* Get che restituisce un singolo parcheggio
+<BR>
+per eseguire il test bisogna aprire il terminale e accedere alla cartella "./SERVER" e digitare il comando "npm test".
+NB: Poiché la Delete si basa sul campo _id della prenotazione (che è univoco) nel caso in cui si vogliano fare altri test basta modificare la variabile “pren_id_test._N” nell’url di chiamata alla API.
 
 //QUA SCRIVERE COME TESTARE L'API.
   
