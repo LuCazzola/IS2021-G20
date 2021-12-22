@@ -1,16 +1,21 @@
 # APIs progetto Smart-Parking
 
-Questa repository contitne il progetto <b>Smart Parking</b>, sviluppato dal gruppo G20 del corso di Ingegneria del Software AA 2021-2022.
+Questa repository contitne il progetto <b>Smart-Parking</b>, sviluppato dal gruppo G20 del corso di Ingegneria del Software AA 2021-2022.
 
 Le APIs qui definite raccolgono l'insieme delle procedure che permettono di fornire i dati necessari al funzionamento dell'applicazione Smart Parking.
 Per soddifare queste richieste sono stati importati i seguenti moduli:
-* Express UI
-* Swagger
-* JSDoc
+* Body-parser
+* Cors
+* Express
+* MongoDB
+* Swagger-jsdoc
+* Swagger-ui-express
+* Supertest
+* Tape
 
 Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API. <BR>
-Per consultare la documentazione:
-<BR> Scaricare la repository, aprire il terminale, accedere alla cartella "IS2021-G20/API" e digitare il comando "npm start". 
+Per consultare la documentazione è necessario avere installato il Runtime System <b>Node.js</b>, dopodiché:
+<BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando "npm start". 
 <BR> Successivamente cliccare sul seguente URL:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
 
