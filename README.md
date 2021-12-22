@@ -50,6 +50,6 @@ This study has been designed, developed, and reported by the following developer
 * <b>Luca Cazzola</b> - Università degli studi di Trento (Unitn), Trento - Italy
 
 For any information, feel free to contact us by writing an email to:
- * <BR>dennis.cattoni@studenti.unitn.it 
- * <BR>sergio.brodesco@studenti.unitn.it
- * <BR>luca.cazzola-1@studenti.unitn.it
+ * dennis.cattoni@studenti.unitn.it 
+ * sergio.brodesco@studenti.unitn.it
+ * luca.cazzola-1@studenti.unitn.it
