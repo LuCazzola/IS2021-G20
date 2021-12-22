@@ -1,8 +1,6 @@
 var test = require('tape');
 var request = require('supertest');
-
 var app = require('../API');
-
 // GET
 var parcheggio_id = '61acba7f736680ca6f6e1f52';
 test('TEST 1 --> Singolo parcheggio', function(assert)  {
@@ -33,7 +31,6 @@ test('TEST 1 --> Singolo parcheggio', function(assert)  {
         }
 
         //Essendo il campo _id statico controllo solo la sua correttezza, in quanto gli altri campi potrebbero variare
-
         assert.error(err, 'No error');
         assert.same(res.body.parcheggio._id, expected_output.parcheggio._id, 'Parcheggio ricevuto come previsto');
         assert.end();
