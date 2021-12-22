@@ -15,7 +15,7 @@ Per soddifare queste richieste sono stati importati i seguenti moduli:
 
 Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API. <BR>
 Per consultare la documentazione è necessario avere installato il Runtime System <b>Node.js</b>, dopodiché:
-<BR> Scaricare la repository, aprire il terminale, accedere alla cartella "./SERVER" e digitare il comando "npm start". 
+<BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando "npm start". 
 <BR> Successivamente cliccare sul seguente URL:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
 
