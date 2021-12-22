@@ -28,9 +28,7 @@ test('TEST 1 --> Singolo parcheggio', function(assert)  {
                 "tariffa_oraria": 1.5,
                 "is_preferito": true
             }
-        }
-
-        //Essendo il campo _id statico controllo solo la sua correttezza, in quanto gli altri campi potrebbero variare
+        } //Essendo il campo _id statico controllo solo la sua correttezza, in quanto gli altri campi potrebbero variare
         assert.error(err, 'No error');
         assert.same(res.body.parcheggio._id, expected_output.parcheggio._id, 'Parcheggio ricevuto come previsto');
         assert.end();
