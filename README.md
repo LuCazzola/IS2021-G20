@@ -1,6 +1,6 @@
 # APIs progetto Smart-Parking
 
-Questa repository contitne il progetto <b>Smart Parking</b>, sviluppato dal gruppo G20 del corso di Ingegneria del Software AA 2021-2022.
+Questa repository contitne il progetto <b>Smart-Parking</b>, sviluppato dal gruppo G20 del corso di Ingegneria del Software AA 2021-2022.
 
 Le APIs qui definite raccolgono l'insieme delle procedure che permettono di fornire i dati necessari al funzionamento dell'applicazione Smart Parking.
 Per soddifare queste richieste sono stati importati i seguenti moduli:
