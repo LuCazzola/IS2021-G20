@@ -4,9 +4,14 @@ Questa repository contitne il progetto <b>Smart Parking</b>, sviluppato dal grup
 
 Le APIs qui definite raccolgono l'insieme delle procedure che permettono di fornire i dati necessari al funzionamento dell'applicazione Smart Parking.
 Per soddifare queste richieste sono stati importati i seguenti moduli:
-* Express UI
-* Swagger
-* JSDoc
+* Body-parser
+* Cors
+* Express
+* MongoDB
+* Swagger-jsdoc
+* Swagger-ui-express
+* Supertest
+* Tape
 
 Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API. <BR>
 Per consultare la documentazione:
