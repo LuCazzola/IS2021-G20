@@ -18,9 +18,10 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 <BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando "npm start". 
 <BR> Successivamente cliccare sul seguente URL:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
-  <br>Per testare l'applicazione è sufficiente avviare il file <b>"index.html"</b> all'interno della cartella <b>"UI"</b>
+<br>Per provare l'applicazione è sufficiente avviare il file <b>"index.html"</b> all'interno della cartella <b>"UI"</b>
+<br><b>NB:</b>Affinché l'interfaccia funzioni il comando <b>"npm start"</b> deve esser stato lanciato in precedenza 
   
-<BR><BR><BR>
+<BR><BR>
   Segue l'homepage dell'applicazione <b>SmartParking</b>:
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
