@@ -15,26 +15,24 @@ Per soddifare queste richieste sono stati importati i seguenti moduli:
 
 Segue la documentazione generata attraverso JSDoc che descrive in modo approfondito ogni metodo definito nelle diverse API. <BR>
 Per consultare la documentazione è necessario avere installato il Runtime System <b>Node.js</b>, dopodiché:
-<BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando <strong>"npm start"</strong>. 
+<BR> Scaricare la repository, aprire il terminale e accedere alla cartella "./SERVER", infine digitare il comando "npm start". 
 <BR> Successivamente cliccare sul seguente URL:
 <br><p align="center"><a href="http://localhost:49126/api-docs/">http://localhost:49126/api-docs/</a></p>
-
-
+  <br>Per testare l'applicazione è sufficiente avviare al file <b>"index.html"</b> all'interno della cartella <b>"UI"</b>
+  
 <BR><BR><BR>
   Segue l'homepage dell'applicazione <b>SmartParking</b>:
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
 </p>
-<BR><BR>
-disponibile al seguente link: <a href="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/index.html">homepage</a>
 <BR><BR><BR>
 
-Nella cartella <strong>"./TEST"</strong> è stato implementato uno script per eseguire il test di tre APIs:
+Nella cartella "./TEST" è stato implementato uno script per eseguire il test di tre APIs:
 * Delete che permette di eliminare una prenotazione specifica
 * Post che aggiorna i dati di un utente
 * Get che restituisce un singolo parcheggio
   
-Per eseguire il test bisogna aprire il terminale e accedere alla cartella <strong>"./SERVER"</strong> e digitare il comando <strong>"npm test"</strong>.
+Per eseguire il test bisogna aprire il terminale e accedere alla cartella "./SERVER" e digitare il comando "npm test".
   
 <b>NB</b>: Poiché la Delete si basa sul campo _id della prenotazione (che è univoco) nel caso in cui si vogliano fare più test basta modificare la variabile “pren_id_test._N” nell’url di chiamata alla API.
 <BR><BR>
@@ -51,7 +49,7 @@ This study has been designed, developed, and reported by the following developer
 
 * <b>Luca Cazzola</b> - Università degli studi di Trento (Unitn), Trento - Italy
 
-For any information, feel free to contact us by writing an email:
-  dennis.cattoni@studenti.unitn.it
-  sergio.brodesco@studenti.unitn.it
-  luca.cazzola-1@studenti.unitn.it
+For any information, feel free to contact us by writing an email to: <BR>
+  <BR>dennis.cattoni@studenti.unitn.it 
+  <BR>sergio.brodesco@studenti.unitn.it
+  <BR>luca.cazzola-1@studenti.unitn.it
