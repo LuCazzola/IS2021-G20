@@ -21,7 +21,7 @@ Per consultare la documentazione è necessario avere installato il Runtime Syste
 
 
 <BR><BR><BR>
-  Segue la homepage dell'applicazione <b>SmartParking</b>:
+  Segue l'homepage dell'applicazione <b>SmartParking</b>:
 <p align="center">
   <img src="https://github.com/LuCazzola/IS2021-G20/blob/main/UI/IMG/Front_End_SmartParking.png" alt="Immagine Front End">
 </p>
